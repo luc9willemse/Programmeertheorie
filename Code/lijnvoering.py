@@ -18,7 +18,7 @@ def random_traject_generater(data):
 
     this function picks random trajects
     """
-    number_of_trajects = random.randint(1, 20)
+    number_of_trajects = random.randint(1, 7)
     list_of_traject = []
     total_time = 0
     for i in range(number_of_trajects):
@@ -38,6 +38,23 @@ def random_traject_generater(data):
 
     return [list_of_traject, total_time, number_of_trajects, fraction]
 
+def grade(p, T, min):
+    return p * 10000 - (T * 100 + min)
+
+def best_trajects(data):
+    best_fractions = []
+    beste_grade = 0
+    for i in range(10000):
+        ran = random_traject_generater(data)
+        if grade(ran[3], ran[2], ran[1]) > beste_grade:
+            best_fractions = ran[0]
+            beste_grade = grade(ran[3], ran[2], ran[1])
+
+    return (best_fractions, beste_grade)
+
+
 
 if __name__ == "__main__":
-    print(random_traject_generater(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120)))
+    ran = random_traject_generater(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    best = best_trajects(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    print(best)
