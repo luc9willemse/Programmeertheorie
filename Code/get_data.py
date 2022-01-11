@@ -39,13 +39,13 @@ def connected_stations(data, max):
                     print(traject, time)
                 else:
                     teller += 1
-            
+
             if teller == len(list_of_connected_stations(data)):
                 break
-            
+
         traject.pop()
         list_of_trajects.append(traject)
-    
+
     return list_of_trajects
 
 
@@ -62,6 +62,25 @@ def list_of_connected_stations(data):
         l.append(connection)
     return l
 
-print(connected_stations(data.generate_dict()["ConnectiesHolland.csv"], 120))
+def list_of_stations(data):
+    """
+    data    :   dataset
+
+    this function gives a list with al the stations
+
+    return  :   list
+    """
+    l = []
+    for connections in list_of_connected_stations(data):
+        if connections[0] not in l:
+            l.append(connections[0])
+        if connections[1] not in l:
+            l.append(connections[1])
+
+    return l
+
+if __name__ == "__main__":
+    print(list_of_stations(data.generate_dict()["ConnectiesHolland.csv"]))
+
 
 

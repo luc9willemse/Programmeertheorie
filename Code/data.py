@@ -47,7 +47,7 @@ def generate_dict():
     datasets = os.listdir(os.path.abspath("Programmeertheorie/Datasets"))
     for file in datasets:
         dictionary[file] = read_data("Programmeertheorie/Datasets/" + file)
-    
+
     return dictionary
 
 
