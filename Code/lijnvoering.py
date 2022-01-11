@@ -17,6 +17,9 @@ def random_traject_generater(data):
     data    :   datasets (dict of trajects)
 
     this function picks random trajects
+
+    return  :   list with the randomly chosen trajects, total time of the trajects,
+                number of trajects and the fraction of the station that are used
     """
     number_of_trajects = random.randint(1, 7)
     list_of_traject = []
@@ -39,22 +42,40 @@ def random_traject_generater(data):
     return [list_of_traject, total_time, number_of_trajects, fraction]
 
 def grade(p, T, min):
+    """
+    p   :   fraction of the total stations
+    T   :   number of trajects
+    min :   total min of the trajects
+
+    grades the the chosen trajects
+
+    return  :   int
+    """
     return p * 10000 - (T * 100 + min)
 
 def best_trajects(data):
+    """
+    data    :   dataset
+
+    runs the random fraction generator multiple times and picks the best one,
+    also keeps track of al the scores.
+
+    return  :   list with the best combination of fractions found, the best
+                grade and a list of all the grades
+    """
+    list_of_grades = []
     best_fractions = []
     beste_grade = 0
     for i in range(10000):
         ran = random_traject_generater(data)
+        list_of_grades.append(round(grade(ran[3], ran[2], ran[1]), 2))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
             best_fractions = ran[0]
             beste_grade = grade(ran[3], ran[2], ran[1])
 
-    return (best_fractions, beste_grade)
-
-
+    return (best_fractions, round(beste_grade, 2), list_of_grades)
 
 if __name__ == "__main__":
     ran = random_traject_generater(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
     best = best_trajects(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
-    print(best)
+    print(best[1])
