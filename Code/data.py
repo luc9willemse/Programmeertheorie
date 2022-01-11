@@ -1,6 +1,6 @@
 """
-Name            :   Luc Willemse
-UvAnetID        :   14012391
+Name            :   Luc Willemse, Minne Sandstra, Stijn Maatje
+UvAnetID        :   14012391, 12261440, 12276529
 Project group   :   10
 Programmeertheorie
 
@@ -24,11 +24,15 @@ def read_data(file):
 
     with open(file, "r") as f:
         csv_reader = csv.reader(f, delimiter=',')
+        teller = 0
         for row in csv_reader:
-            if "Con" in file:
-                dictionary[(row[0], row[1])] = row[2]
+            if teller == 0:
+                teller += 1
             else:
-                dictionary[row[0]] = (row[1], row[2])
+                if "Con" in file:
+                    dictionary[(row[0], row[1])] = row[2]
+                else:
+                    dictionary[row[0]] = (row[1], row[2])
 
     return dictionary
 
