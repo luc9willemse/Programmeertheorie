@@ -11,6 +11,7 @@ import data
 import network
 import random
 import get_data
+from collections import Counter
 
 def random_traject_generater(data):
     """
@@ -21,7 +22,8 @@ def random_traject_generater(data):
     return  :   list with the randomly chosen trajects, total time of the trajects,
                 number of trajects and the fraction of the station that are used
     """
-    number_of_trajects = random.randint(1, 7)
+    #number_of_trajects = random.randint(1, 7)
+    number_of_trajects = 5
     list_of_traject = []
     total_time = 0
     for i in range(number_of_trajects):
@@ -63,19 +65,39 @@ def best_trajects(data):
     return  :   list with the best combination of fractions found, the best
                 grade and a list of all the grades
     """
-    list_of_grades = []
+    trajects_grades = []
     best_fractions = []
     beste_grade = 0
     for i in range(10000):
         ran = random_traject_generater(data)
-        list_of_grades.append(round(grade(ran[3], ran[2], ran[1]), 2))
+        trajects_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
             best_fractions = ran[0]
             beste_grade = grade(ran[3], ran[2], ran[1])
 
-    return (best_fractions, round(beste_grade, 2), list_of_grades)
+    return (best_fractions, round(beste_grade, 2), trajects_grades)
+
+def good_trajects():
+    """
+    finds what trajects are often found in the combination with a high score
+    """
+    pass
+
+def best_number_of_trajects(data):
+    """
+    finds what number of trajects is the best one
+    """
+    l = []
+    for traject in data:
+        if traject[1] > 8000:
+            l.append(len(traject[0]))
+
+    c = Counter(l)
+
+    return c.most_common(1)
 
 if __name__ == "__main__":
     ran = random_traject_generater(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
     best = best_trajects(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    best_num = best_number_of_trajects(best[2])
     print(best[1])

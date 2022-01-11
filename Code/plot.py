@@ -14,9 +14,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def plot_hist(data):
-    x = np.array(data[2])
+    l = []
+    for i in data[2]:
+        l.append(i[1])
 
-    plt.hist(x, bins=50, label="traction combinations grades")
+    x = np.array(l)
+
+    plt.hist(x, bins=60, label="traction combinations grades")
     plt.xlabel("grade")
     plt.ylabel("number of traction combinations")
     plt.title("traction combinations grades, highest grade: " + str(data[1]))
