@@ -22,14 +22,15 @@ def random_traject_generater(data):
     return  :   list with the randomly chosen trajects, total time of the trajects,
                 number of trajects and the fraction of the station that are used
     """
-    #number_of_trajects = random.randint(1, 7)
-    number_of_trajects = 5
+    number_of_trajects = random.randint(1, 7)
+    #number_of_trajects = 5
     list_of_traject = []
     total_time = 0
     for i in range(number_of_trajects):
         traject = list(data.keys())[random.randint(0,(len(data)-1))]
         list_of_traject.append(traject)
         total_time += int(data[traject])
+        #del data[traject]
 
     teller = 0
     list_of_stations = get_data.list_of_stations(data)
@@ -83,21 +84,28 @@ def good_trajects():
     """
     pass
 
+def good_number_trajects():
+    """
+    finds what length of trajects is the best, min and max.
+    """
+    pass
+
 def best_number_of_trajects(data):
     """
     finds what number of trajects is the best one
     """
     l = []
     for traject in data:
-        if traject[1] > 8000:
+        if traject[1] > 8500:
             l.append(len(traject[0]))
 
     c = Counter(l)
 
-    return c.most_common(1)
+    return c.most_common(1)[0][0]
 
 if __name__ == "__main__":
-    ran = random_traject_generater(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
-    best = best_trajects(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    trajects = network.find_all_trajects(data.generate_dict()["ConnectiesNationaal.csv"], 120)
+    ran = random_traject_generater(trajects)
+    best = best_trajects(trajects)
     best_num = best_number_of_trajects(best[2])
-    print(best[1])
+    print(best_num)

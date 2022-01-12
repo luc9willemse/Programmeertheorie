@@ -29,8 +29,10 @@ def read_data(file):
             if teller == 0:
                 teller += 1
             else:
-                if "Con" in file:
+                if "tiesHo" in file:
                     dictionary[(row[0], row[1])] = row[2]
+                elif "tiesNa" in file:
+                    dictionary[(row[0], row[1])] = float(row[2])
                 else:
                     dictionary[row[0]] = (row[1], row[2])
 

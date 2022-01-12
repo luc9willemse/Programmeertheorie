@@ -45,7 +45,7 @@ def find_all_trajects(data, max_time):
     for departure_station in get_data.list_of_stations(data):
         for arrival_station in get_data.list_of_stations(data):
             if departure_station != arrival_station:
-                for trajects in list(nx.all_simple_paths(G, departure_station, arrival_station)):
+                for trajects in list(nx.all_simple_paths(G, departure_station, arrival_station, cutoff=25)):
                     teller = 0
                     time = 0
                     for i in trajects:
