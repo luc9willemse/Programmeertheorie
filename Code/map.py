@@ -12,7 +12,7 @@ import data
 import webbrowser
 
 data = data.generate_dict()
-stations = data['StationsHolland.csv']
+stations = data['StationsNationaal.csv']
 connections = data['ConnectiesNationaal.csv']
 
 map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
@@ -23,6 +23,7 @@ for station in stations:
 
 for connection in connections:
     points = [tuple(stations[connection[0]]), tuple(stations[connection[1]])]
+    print(points)
     folium.PolyLine(locations=points, color='#00C4B3', weight=2.5, tooltip=connections[connection]).add_to(map)
 
 def add_trajectory(list, color):
