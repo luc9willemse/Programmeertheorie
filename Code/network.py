@@ -69,11 +69,11 @@ def find_all_trajects(data, max_time):
 
     m = min(testl)
 
-    l = []
-    for i, j in dict_trajects.items():
-        l.append([i, j])
+    # l = []
+    # for i, j in dict_trajects.items():
+    #     l.append([i, j])
 
-    np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+    # np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
 
     # df = pd.DataFrame(l)
     # df.to_csv('All_trajects_nationaal.csv')
@@ -81,8 +81,8 @@ def find_all_trajects(data, max_time):
     return (dict_trajects, m)
 
 if __name__ == "__main__":
-    G = generate_graph(data.generate_dict()["ConnectiesNationaal.csv"])
-    print(find_all_trajects(data.generate_dict()["ConnectiesNationaal.csv"], 120)[1])
+    G = generate_graph(data.generate_dict()["ConnectiesHolland.csv"])
+    print(find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120)[0])
     plt.figure(1)
     pos=nx.spring_layout(G)
     nx.draw_networkx(G, pos)

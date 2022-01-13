@@ -41,7 +41,7 @@ def random_traject_generater(data):
                 list_of_stations.remove(station)
 
     fraction = teller / len(get_data.list_of_stations(data))
-
+    # franction is aantal verbindingen
     return [list_of_traject, total_time, number_of_trajects, fraction]
 
 def grade(p, T, min):
@@ -115,8 +115,8 @@ def best_number_of_trajects(data):
     return c.most_common(1)[0][0]
 
 if __name__ == "__main__":
-    trajects = network.find_all_trajects(data.generate_dict()["ConnectiesNationaal.csv"], 120)
+    trajects = network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120)
     ran = random_traject_generater(trajects)
     best = best_trajects(trajects)
     best_num = best_number_of_trajects(best[2])
-    print(best_num, best)
+    print(best_num, best, ran)

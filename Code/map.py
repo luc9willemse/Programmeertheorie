@@ -7,7 +7,6 @@ Programmeertheorie
 map.py:
 this file generates a map with al the stations
 """
-
 import folium
 import data
 import webbrowser
