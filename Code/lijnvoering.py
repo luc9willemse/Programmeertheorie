@@ -66,17 +66,17 @@ def best_trajects(data):
     return  :   list with the best combination of fractions found, the best
                 grade and a list of all the grades
     """
-    trajects_grades = []
+    trajects_and_grades = []
     best_fractions = []
     beste_grade = 0
     for i in range(10000):
         ran = random_traject_generater(data)
-        trajects_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
+        trajects_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
             best_fractions = ran[0]
             beste_grade = grade(ran[3], ran[2], ran[1])
 
-    return (best_fractions, round(beste_grade, 2), trajects_grades)
+    return (best_fractions, round(beste_grade, 2), trajects_and_grades)
 
 def good_trajects():
     """
@@ -84,11 +84,22 @@ def good_trajects():
     """
     pass
 
-def good_number_trajects():
+def good_number_trajects(data):
     """
     finds what length of trajects is the best, min and max.
     """
-    pass
+    l_min = []
+    l_max = []
+    for trajects in data:
+        if trajects[1] > 8500:
+            trajects[1].sort()
+            l_min = trajects[1][0]
+            l_max = trajects[1][-1]
+    
+    c_min = Counter(l_min)
+    c_max = Counter(l_max)
+
+    return (c_min.most_common(1)[0][0], c_max.most_common(1)[0][0])
 
 def best_number_of_trajects(data):
     """
@@ -108,4 +119,4 @@ if __name__ == "__main__":
     ran = random_traject_generater(trajects)
     best = best_trajects(trajects)
     best_num = best_number_of_trajects(best[2])
-    print(best_num)
+    print(best_num, best)
