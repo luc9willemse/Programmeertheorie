@@ -12,8 +12,9 @@ import folium
 import data
 import webbrowser
 
-stations = data.read_data('Datasets/StationsHolland.csv')
-connections = data.read_data('Datasets/ConnectiesHolland.csv')
+data = data.generate_dict()
+stations = data['StationsHolland.csv']
+connections = data['ConnectiesNationaal.csv']
 
 map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
 
@@ -45,5 +46,6 @@ def add_traject(list, color):
 
 add_traject(['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal'], '#F53044')
 
-map.save('Maps/HollandMap.html')
-webbrowser.open_new_tab('Maps/HollandMap.html')
+if __name__ == "__main__":
+    map.save('Maps/HollandMap.html')
+    webbrowser.open_new_tab('Maps/HollandMap.html')
