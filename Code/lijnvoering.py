@@ -34,7 +34,7 @@ def random_trajectory_generator(data):
 
     counter = 0
     list_of_stations = get_data.list_of_stations(data)
-    for traject in list_of_traject:
+    for traject in list_of_trajectories:
         for station in traject:
             if station in list_of_stations:
                 counter += 1
