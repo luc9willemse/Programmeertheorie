@@ -83,8 +83,8 @@ def find_all_trajectories(data, max_time):
     return dict_trajectories
 
 if __name__ == "__main__":
-    G = generate_graph(data.generate_dict()["ConnectiesNationaal.csv"])
-    print(find_all_trajectories(data.generate_dict()["ConnectiesNationaal.csv"], 120)[1])
+    G = generate_graph(data.generate_dict()["ConnectiesHolland.csv"])
+    print(find_all_trajectories(data.generate_dict()["ConnectiesHolland.csv"], 120))
     plt.figure(1)
     pos=nx.spring_layout(G)
     nx.draw_networkx(G, pos)

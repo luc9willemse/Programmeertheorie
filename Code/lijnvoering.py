@@ -78,15 +78,15 @@ def best_trajectories(data):
 
     return (best_fractions, round(beste_grade, 2), trajectories_and_grades)
 
-def good_trajects():
+def good_trajectories():
     """
     finds what trajects are often found in the combination with a high score
     """
     pass
 
-def good_number_trajects(data):
+def good_number_trajectories(data):
     """
-    finds what length of trajects is the best, min and max.
+    finds what length of trajectories is the best, min and max.
     """
     l_min = []
     l_max = []
