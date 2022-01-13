@@ -20,11 +20,10 @@ def plot_hist(data):
 
     x = np.array(l)
 
-    plt.hist(x, bins=60, label="tract combinations grades")
-    plt.xlabel("grade")
-    plt.ylabel("number of track combinations")
-    plt.title("traction combinations grades, highest grade: " + str(data[1]))
-    plt.legend()
+    plt.hist(x, bins=60)
+    plt.xlabel("K (value of objective function)")
+    plt.ylabel("Number of tractories")
+    plt.title("Number of trajectories with scores (highest score: " + str(data[1]) + ")")
     plt.show()
 
 if __name__ == "__main__":
