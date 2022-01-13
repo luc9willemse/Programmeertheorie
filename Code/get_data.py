@@ -12,41 +12,41 @@ import data
 def connected_stations(data, max):
     """
     data    :   dataset
-    max     :   the max time of a traject
+    max     :   the max time of a trajectory
 
-    this function creates a list of lists, the lists contain trajects that take
+    this function creates a list of lists, the lists contain trajectories that take
     less time than the max time
 
     return  :   list of lists
     """
-    list_of_trajects = []
+    list_of_trajectories = []
     for connection in list_of_connected_stations(data):
-        traject = [connection[0], connection[1]]
+        trajectory = [connection[0], connection[1]]
         station = connection[1]
         time = int(data[(connection[0], connection[1])])
         while time < max:
             teller = 0
             for i in list_of_connected_stations(data):
-                if i[0] == station and i[1] not in traject:
-                    traject.append(i[1])
+                if i[0] == station and i[1] not in trajectory:
+                    trajectory.append(i[1])
                     time += int(data[(station, i[1])])
                     station = i[1]
-                    print(traject, time)
-                elif i[1] == station and i[0] not in traject:
-                    traject.append(i[0])
+                    print(trajectory, time)
+                elif i[1] == station and i[0] not in trajectory:
+                    trajectory.append(i[0])
                     time += int(data[(i[0], station)])
                     station = i[0]
-                    print(traject, time)
+                    print(trajectory, time)
                 else:
                     teller += 1
 
             if teller == len(list_of_connected_stations(data)):
                 break
 
-        traject.pop()
-        list_of_trajects.append(traject)
+        trajectory.pop()
+        list_of_trajectories.append(trajectory)
 
-    return list_of_trajects
+    return list_of_trajectories
 
 
 def list_of_connected_stations(data):

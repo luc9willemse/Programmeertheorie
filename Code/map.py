@@ -25,12 +25,12 @@ for connection in connections:
     points = [tuple(stations[connection[0]]), tuple(stations[connection[1]])]
     folium.PolyLine(locations=points, color='#00C4B3', weight=2.5, tooltip=connections[connection]).add_to(map)
 
-def add_traject(list, color):
+def add_trajectory(list, color):
     """
-    list    :   list of stations on traject
-    color   :   color of traject
+    list    :   list of stations on trajectory
+    color   :   color of trajectory
 
-    this function adds a traject with color
+    this function adds a trajectory with color
     """
 
     for i in range(len(list) - 1):
@@ -43,7 +43,7 @@ def add_traject(list, color):
         points = stations[list[i]], stations[list[i+1]]
         folium.PolyLine(locations=points, color=color, weight=2.5, tooltip=connections[connection]).add_to(map)
 
-add_traject(['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal'], '#F53044')
+add_trajectory(['Den Helder', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal'], '#F53044')
 
 if __name__ == "__main__":
     map.save('Maps/HollandMap.html')

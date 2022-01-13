@@ -20,13 +20,13 @@ def plot_hist(data):
 
     x = np.array(l)
 
-    plt.hist(x, bins=60, label="traction combinations grades")
+    plt.hist(x, bins=60, label="tract combinations grades")
     plt.xlabel("grade")
-    plt.ylabel("number of traction combinations")
+    plt.ylabel("number of track combinations")
     plt.title("traction combinations grades, highest grade: " + str(data[1]))
     plt.legend()
     plt.show()
 
 if __name__ == "__main__":
-    best = lijnvoering.best_trajects(network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    best = lijnvoering.best_trajectories(network.find_all_trajectories(data.generate_dict()["ConnectiesHolland.csv"], 120))
     plot_hist(best)

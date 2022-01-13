@@ -13,7 +13,7 @@ import random
 import get_data
 from collections import Counter
 
-def random_traject_generater(data):
+def random_trajectory_generator(data):
     """
     data    :   datasets (dict of trajects)
 
@@ -22,27 +22,27 @@ def random_traject_generater(data):
     return  :   list with the randomly chosen trajects, total time of the trajects,
                 number of trajects and the fraction of the station that are used
     """
-    number_of_trajects = random.randint(1, 7)
+    number_of_trajectories = random.randint(1, 7)
     #number_of_trajects = 5
-    list_of_traject = []
+    list_of_trajectories = []
     total_time = 0
-    for i in range(number_of_trajects):
+    for i in range(number_of_trajectories):
         traject = list(data.keys())[random.randint(0,(len(data)-1))]
-        list_of_traject.append(traject)
+        list_of_trajectories.append(traject)
         total_time += int(data[traject])
         #del data[traject]
 
-    teller = 0
+    counter = 0
     list_of_stations = get_data.list_of_stations(data)
     for traject in list_of_traject:
         for station in traject:
             if station in list_of_stations:
-                teller += 1
+                counter += 1
                 list_of_stations.remove(station)
 
-    fraction = teller / len(get_data.list_of_stations(data))
+    fraction = counter / len(get_data.list_of_stations(data))
     # franction is aantal verbindingen
-    return [list_of_traject, total_time, number_of_trajects, fraction]
+    return [list_of_trajectories, total_time, number_of_trajectories, fraction]
 
 def grade(p, T, min):
     """
@@ -56,7 +56,7 @@ def grade(p, T, min):
     """
     return p * 10000 - (T * 100 + min)
 
-def best_trajects(data):
+def best_trajectories(data):
     """
     data    :   dataset
 
@@ -66,17 +66,17 @@ def best_trajects(data):
     return  :   list with the best combination of fractions found, the best
                 grade and a list of all the grades
     """
-    trajects_and_grades = []
+    trajectories_and_grades = []
     best_fractions = []
     beste_grade = 0
     for i in range(10000):
-        ran = random_traject_generater(data)
-        trajects_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
+        ran = random_trajectory_generator(data)
+        trajectories_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
             best_fractions = ran[0]
             beste_grade = grade(ran[3], ran[2], ran[1])
 
-    return (best_fractions, round(beste_grade, 2), trajects_and_grades)
+    return (best_fractions, round(beste_grade, 2), trajectories_and_grades)
 
 def good_trajects():
     """
@@ -90,34 +90,34 @@ def good_number_trajects(data):
     """
     l_min = []
     l_max = []
-    for trajects in data:
-        if trajects[1] > 8500:
-            trajects[1].sort()
-            l_min = trajects[1][0]
-            l_max = trajects[1][-1]
+    for trajectory in data:
+        if trajectory[1] > 8500:
+            trajectory[1].sort()
+            l_min = trajectory[1][0]
+            l_max = trajectory[1][-1]
     
     c_min = Counter(l_min)
     c_max = Counter(l_max)
 
     return (c_min.most_common(1)[0][0], c_max.most_common(1)[0][0])
 
-def best_number_of_trajects(data):
+def best_number_of_trajectories(data):
     """
-    finds what number of trajects is the best one
+    finds what number of trajectories is the best one
     """
     l = []
-    for traject in data:
-        if traject[1] > 8500:
-            l.append(len(traject[0]))
+    for trajectory in data:
+        if trajectory[1] > 8500:
+            l.append(len(trajectory[0]))
 
     c = Counter(l)
 
     return c.most_common(1)[0][0]
 
 if __name__ == "__main__":
-    trajects = network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120)
-    print(trajects)
-    ran = random_traject_generater(trajects)
-    best = best_trajects(trajects)
-    best_num = best_number_of_trajects(best[2])
+    trajectories = network.find_all_trajectories(data.generate_dict()["ConnectiesHolland.csv"], 120)
+    print(trajectories)
+    ran = random_trajectory_generator(trajectories)
+    best = best_trajectories(trajectories)
+    best_num = best_number_of_trajectories(best[2])
     print(best_num, best, ran)
