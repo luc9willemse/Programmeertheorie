@@ -116,6 +116,7 @@ def best_number_of_trajects(data):
 
 if __name__ == "__main__":
     trajects = network.find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120)
+    print(trajects)
     ran = random_traject_generater(trajects)
     best = best_trajects(trajects)
     best_num = best_number_of_trajects(best[2])
