@@ -14,6 +14,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import data
 import get_data
+import csv
+import pandas as pd
+import numpy as np
 
 def generate_graph(data):
     """
@@ -41,11 +44,13 @@ def find_all_trajects(data, max_time):
     return  :   dict
     """
     dict_trajects = {}
+    testl = []
     G = generate_graph(data)
     for departure_station in get_data.list_of_stations(data):
+        print(departure_station)
         for arrival_station in get_data.list_of_stations(data):
             if departure_station != arrival_station:
-                for trajects in list(nx.all_simple_paths(G, departure_station, arrival_station, cutoff=25)):
+                for trajects in list(nx.all_simple_paths(G, departure_station, arrival_station, cutoff=18)):
                     teller = 0
                     time = 0
                     for i in trajects:
@@ -56,14 +61,28 @@ def find_all_trajects(data, max_time):
                             time += int(data[(trajects[teller+1], i)])
                             teller += 1
 
+                    if len(trajects) == 18:
+                        testl.append(time)
+
                     if time < (max_time + 1) and tuple(trajects)[::-1] not in dict_trajects:
                         dict_trajects[tuple(trajects)] = time
 
-    return dict_trajects
+    m = min(testl)
+
+    l = []
+    for i, j in dict_trajects.items():
+        l.append([i, j])
+
+    np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+
+    # df = pd.DataFrame(l)
+    # df.to_csv('All_trajects_nationaal.csv')
+
+    return (dict_trajects, m)
 
 if __name__ == "__main__":
-    G = generate_graph(data.generate_dict()["ConnectiesHolland.csv"])
-    print(find_all_trajects(data.generate_dict()["ConnectiesHolland.csv"], 120))
+    G = generate_graph(data.generate_dict()["ConnectiesNationaal.csv"])
+    print(find_all_trajects(data.generate_dict()["ConnectiesNationaal.csv"], 120)[1])
     plt.figure(1)
     pos=nx.spring_layout(G)
     nx.draw_networkx(G, pos)
