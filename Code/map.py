@@ -11,45 +11,56 @@ import folium
 import data
 import webbrowser
 
-def create_map():
-    """
-    this function creates a map object
-    """
+class Map():
+    def __init__(self):
+        self.colors = ['#E6FB04', '#FF0000', '#33FF00', '9900FF', '#FFAD00', '#000000']
 
-    all_data = data.generate_dict()
-    stations = all_data['StationsHolland.csv']
-    connections = all_data['ConnectiesHolland.csv']
+    def create_map(self):
+        """
+        this function creates a map object
+        """
 
-    map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
+        all_data = data.generate_dict()
+        stations = all_data['StationsHolland.csv']
+        connections = all_data['ConnectiesHolland.csv']
 
-    for station in stations:
-        stations[station] = (float(stations[station][0]), float(stations[station][1]))
-        folium.CircleMarker(location=stations[station], radius=5, tooltip=station, color='#00C4B3', fill_color='#00C4B3', fill=True).add_to(map)
+        map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
 
-    for connection in connections:
-        points = [tuple(stations[connection[0]]), tuple(stations[connection[1]])]
-        folium.PolyLine(locations=points, color='#00C4B3', weight=2.5, tooltip=connections[connection]).add_to(map)
+        for station in stations:
+            stations[station] = (float(stations[station][0]), float(stations[station][1]))
+            folium.CircleMarker(location=stations[station], radius=5, tooltip=station, color='#00C4B3', fill_color='#00C4B3', fill=True).add_to(map)
 
-    return map, stations, connections
+        for connection in connections:
+            points = [tuple(stations[connection[0]]), tuple(stations[connection[1]])]
+            folium.PolyLine(locations=points, color='#00C4B3', weight=2.5, tooltip=connections[connection]).add_to(map)
 
-def add_trajectory(list, color, stations, connections):
-    """
-    list    :   list of stations on trajectory
-    color   :   color of trajectory
+        self.connections = connections
+        self.stations = stations
+        self.map = map
 
-    this function adds a trajectory with color
-    """
+    def add_trajectory(self, list, color):
+        """
+        list    :   list of stations on trajectory
+        color   :   color of trajectory
 
-    for i in range(len(list) - 1):
+        this function adds a trajectory with color
+        """
 
-        if (list[i], list[i+1]) in connections:
-            connection = (list[i], list[i+1])
-        else:
-            connection = (list[i+1], list[i])
+        for i in range(len(list) - 1):
 
-        points = stations[list[i]], stations[list[i+1]]
-        folium.PolyLine(locations=points, color=color, weight=2.5, tooltip=connections[connection]).add_to(map)
+            if (list[i], list[i+1]) in self.connections:
+                connection = (list[i], list[i+1])
+            else:
+                connection = (list[i+1], list[i])
+
+            points = self.stations[list[i]], self.stations[list[i+1]]
+            folium.PolyLine(locations=points, color=color, weight=2.5, tooltip=self.connections[connection]).add_to(map)
+
+    def save_map(self):
+        self.map.save('Maps/HollandMap.html')
+        webbrowser.open_new_tab('Maps/HollandMap.html')
 
 if __name__ == "__main__":
-    map.save('Maps/HollandMap.html')
-    webbrowser.open_new_tab('Maps/HollandMap.html')
+    map = Map()
+    map.create_map()
+    map.save_map()
