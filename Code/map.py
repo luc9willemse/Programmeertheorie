@@ -8,7 +8,6 @@ map.py:
 this file generates a map with al the stations
 """
 import folium
-import data
 import webbrowser
 
 class Map():
@@ -54,4 +53,3 @@ class Map():
     def save_map(self):
         self.map.save('Maps/HollandMap.html')
         webbrowser.open_new_tab('Maps/HollandMap.html')
-        

@@ -16,7 +16,7 @@ class Data():
         self.connecties_holland = self.dict["ConnectiesHolland.csv"]
         self.connecties_nationaal = self.dict["ConnectiesNationaal.csv"]
         self.stations_holland = self.list_of_stations(self.connecties_holland)
-        self.stations_holland = self.list_of_stations(self.connecties_nationaal)
+        self.stations_nationaal = self.list_of_stations(self.connecties_nationaal)
 
     # def connected_stations(data, max):
     #     """
