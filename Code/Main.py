@@ -22,5 +22,5 @@ if __name__ == "__main__":
     nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.show()
     # map
-    Map.create_map(stations_holland, connections_holland)
+    Map.create_map(All_data.dict["StationsHolland.csv"], connections_holland)
     Map.save_map()
