@@ -5,55 +5,86 @@ Project group   :   10
 Programmeertheorie
 
 data.py:
-Generates a dictionairy with the names of different datasets as the key and
-the actual data as the value.
+this file contains functions that helps you to get easier access to the data
 """
+import load_data
 
-import csv
-import os
+class Data():
+    # get loaded data
+    def __init__(self):
+        self.dict = load_data.generate_dict()
+        self.connecties_holland = self.dict["ConnectiesHolland.csv"]
+        self.connecties_nationaal = self.dict["ConnectiesNationaal.csv"]
+        self.stations_holland = self.list_of_stations(self.connecties_holland)
+        self.stations_holland = self.list_of_stations(self.connecties_nationaal)
 
-def read_data(file):
-    """
-    file    :   csv file
+    # def connected_stations(data, max):
+    #     """
+    #     data    :   dataset
+    #     max     :   the max time of a trajectory
 
-    converts a csv file to a dictionary
+    #     this function creates a list of lists, the lists contain trajectories that take
+    #     less time than the max time
 
-    return  :   dict
-    """
-    dictionary = {}
+    #     return  :   list of lists
+    #     """
+    #     list_of_trajectories = []
+    #     for connection in list_of_connected_stations(data):
+    #         trajectory = [connection[0], connection[1]]
+    #         station = connection[1]
+    #         time = int(data[(connection[0], connection[1])])
+    #         while time < max:
+    #             teller = 0
+    #             for i in list_of_connected_stations(data):
+    #                 if i[0] == station and i[1] not in trajectory:
+    #                     trajectory.append(i[1])
+    #                     time += int(data[(station, i[1])])
+    #                     station = i[1]
+    #                     print(trajectory, time)
+    #                 elif i[1] == station and i[0] not in trajectory:
+    #                     trajectory.append(i[0])
+    #                     time += int(data[(i[0], station)])
+    #                     station = i[0]
+    #                     print(trajectory, time)
+    #                 else:
+    #                     teller += 1
 
-    with open(file, "r") as f:
-        csv_reader = csv.reader(f, delimiter=',')
-        teller = 0
-        for row in csv_reader:
-            if teller == 0:
-                teller += 1
-            else:
-                if "tiesHo" in file:
-                    dictionary[(row[0], row[1])] = row[2]
-                elif "tiesNa" in file:
-                    dictionary[(row[0], row[1])] = float(row[2])
-                else:
-                    dictionary[row[0]] = (row[1], row[2])
+    #             if teller == len(list_of_connected_stations(data)):
+    #                 break
 
-    return dictionary
+    #         trajectory.pop()
+    #         list_of_trajectories.append(trajectory)
 
-def generate_dict():
-    """
-    generates dictionary with al the data sets
+    #     return list_of_trajectories
 
-    return  :   dict
-    """
-    dictionary = {}
-    path_file = os.path.dirname(os.path.abspath(__file__)) + '/'
-    datasets = os.listdir(path_file + "../Datasets")
-    print(datasets)
-    for file in datasets:
-        dictionary[file] = read_data(path_file + "../Datasets/" + file)
+    def list_of_connected_stations(self, data):
+        """
+        data    :   dataset
 
-    return dictionary
+        this function modifies the normal dataset to a list with only the connections
 
+        return  :   list of tuples
+        """
+        l = []
+        for connection in data:
+            l.append(connection)
+        return l
+
+    def list_of_stations(self, data):
+        """
+        data    :   dataset
+        this function gives a list with al the stations
+        return  :   list
+        """
+        l = []
+        for connections in self.list_of_connected_stations(data):
+            if connections[0] not in l:
+                l.append(connections[0])
+            if connections[1] not in l:
+                l.append(connections[1])
+
+        return l
 
 if __name__ == "__main__":
-    dic = generate_dict()
-    print(dic)
+    data = Data()
+    print(data.stations_holland)

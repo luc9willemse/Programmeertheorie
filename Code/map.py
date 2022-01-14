@@ -15,15 +15,10 @@ class Map():
     def __init__(self):
         self.colors = ['#E6FB04', '#FF0000', '#33FF00', '9900FF', '#FFAD00', '#000000']
 
-    def create_map(self):
+    def create_map(self, stations, connections):
         """
         this function creates a map object
         """
-
-        all_data = data.generate_dict()
-        stations = all_data['StationsHolland.csv']
-        connections = all_data['ConnectiesHolland.csv']
-
         map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
 
         for station in stations:
@@ -59,8 +54,4 @@ class Map():
     def save_map(self):
         self.map.save('Maps/HollandMap.html')
         webbrowser.open_new_tab('Maps/HollandMap.html')
-
-if __name__ == "__main__":
-    map = Map()
-    map.create_map()
-    map.save_map()
+        
