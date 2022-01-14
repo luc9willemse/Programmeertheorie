@@ -10,10 +10,9 @@ this file contains the algoritems that find the lijnvoering
 import data
 import network
 import random
-import get_data
 from collections import Counter
 
-def random_trajectory_generator(data):
+def random_trajectory_generator(data, list_of_stations):
     """
     data    :   datasets (dict of trajects)
 
@@ -33,14 +32,13 @@ def random_trajectory_generator(data):
         #del data[traject]
 
     counter = 0
-    list_of_stations = get_data.list_of_stations(data)
     for traject in list_of_trajectories:
         for station in traject:
             if station in list_of_stations:
                 counter += 1
                 list_of_stations.remove(station)
 
-    fraction = counter / len(get_data.list_of_stations(data))
+    fraction = counter / len(list_of_stations)
     # franction is aantal verbindingen
     return [list_of_trajectories, total_time, number_of_trajectories, fraction]
 
