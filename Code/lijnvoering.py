@@ -77,6 +77,7 @@ def best_trajectories(data):
             beste_grade = grade(ran[3], ran[2], ran[1])
 
     return (best_fractions, round(beste_grade, 2), trajectories_and_grades)
+    #return (round(beste_grade, 2))
 
 def good_trajectories():
     """
@@ -116,8 +117,8 @@ def best_number_of_trajectories(data):
 
 if __name__ == "__main__":
     trajectories = network.find_all_trajectories(data.generate_dict()["ConnectiesHolland.csv"], 120)
-    print(trajectories)
+    #print(trajectories)
     ran = random_trajectory_generator(trajectories)
     best = best_trajectories(trajectories)
-    best_num = best_number_of_trajectories(best[2])
-    print(best_num, best, ran)
+    #best_num = best_number_of_trajectories(best[2])
+    print(best[0], best[1])
