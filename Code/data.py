@@ -45,10 +45,11 @@ def generate_dict():
     return  :   dict
     """
     dictionary = {}
-
-    datasets = os.listdir(os.path.abspath("Programmeertheorie/Datasets"))
+    path_file = os.path.dirname(os.path.abspath(__file__)) + '/'
+    datasets = os.listdir(path_file + "../Datasets")
+    print(datasets)
     for file in datasets:
-        dictionary[file] = read_data("Programmeertheorie/Datasets/" + file)
+        dictionary[file] = read_data(path_file + "../Datasets/" + file)
 
     return dictionary
 

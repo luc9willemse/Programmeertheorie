@@ -95,7 +95,7 @@ def good_number_trajects(data):
             trajects[1].sort()
             l_min = trajects[1][0]
             l_max = trajects[1][-1]
-    
+
     c_min = Counter(l_min)
     c_max = Counter(l_max)
 
@@ -120,4 +120,5 @@ if __name__ == "__main__":
     ran = random_traject_generater(trajects)
     best = best_trajects(trajects)
     best_num = best_number_of_trajects(best[2])
-    print(best_num, best, ran)
+    minmax = good_number_trajects(trajects)
+    print(best_num, best, ran, minmax)
