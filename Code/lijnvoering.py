@@ -7,8 +7,6 @@ Programmeertheorie
 lijnvoering.py:
 this file contains the algoritems that find the lijnvoering
 """
-import data
-import network
 import random
 from collections import Counter
 
@@ -54,7 +52,7 @@ def grade(p, T, min):
     """
     return p * 10000 - (T * 100 + min)
 
-def best_trajectories(data):
+def best_trajectories(data, list_of_stations):
     """
     data    :   dataset
 
@@ -68,7 +66,7 @@ def best_trajectories(data):
     best_fractions = []
     beste_grade = 0
     for i in range(10000):
-        ran = random_trajectory_generator(data)
+        ran = random_trajectory_generator(data, list_of_stations)
         trajectories_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
             best_fractions = ran[0]
@@ -112,11 +110,3 @@ def best_number_of_trajectories(data):
     c = Counter(l)
 
     return c.most_common(1)[0][0]
-
-if __name__ == "__main__":
-    trajectories = network.find_all_trajectories(data.generate_dict()["ConnectiesHolland.csv"], 120)
-    #print(trajectories)
-    ran = random_trajectory_generator(trajectories)
-    best = best_trajectories(trajectories)
-    #best_num = best_number_of_trajectories(best[2])
-    print(best[0], best[1])

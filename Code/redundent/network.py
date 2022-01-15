@@ -17,6 +17,10 @@ import pandas as pd
 import numpy as np
 
 class Network():
+    def __init(self, graph):
+        self.nodes = graph.nodes
+        self.connections = graph.connections
+        
     def generate_graph(self, data):
         """
         data    :   dataset
