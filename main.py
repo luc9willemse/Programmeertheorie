@@ -23,10 +23,10 @@ if __name__ == "__main__":
     graph = Graph(type)
 
     all_trajectories = graph.find_all_trajectories(120)
+    l_all_random = lv.multiple_random_tractories(all_trajectories, graph.list_of_connections())
     solution = lv.random_trajectory_generator(all_trajectories, graph.list_of_connections())
-    print(solution[3], solution[2], solution[1])
     grade = lv.grade(solution[3], solution[2], solution[1])
-    print(grade)
+    print(lv.list_of_best_trajectories(all_trajectories, l_all_random[2]))
     map = Map(graph.nodes, graph.dic_of_connections(), type)
     map.add_solution(solution)
     map.save_map()
