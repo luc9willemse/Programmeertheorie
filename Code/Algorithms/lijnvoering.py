@@ -10,7 +10,7 @@ this file contains the algoritems that find the lijnvoering
 import random
 from collections import Counter
 
-def random_trajectory_generator(data, list_of_stations):
+def random_trajectory_generator(data, list_of_connections):
     """
     data    :   datasets (dict of trajects)
 
@@ -20,25 +20,35 @@ def random_trajectory_generator(data, list_of_stations):
                 number of trajects and the fraction of the station that are used
     """
     number_of_trajectories = random.randint(1, 7)
-    #number_of_trajects = 5
     list_of_trajectories = []
     total_time = 0
     for i in range(number_of_trajectories):
         traject = list(data.keys())[random.randint(0,(len(data)-1))]
         list_of_trajectories.append(traject)
         total_time += int(data[traject])
-        #del data[traject]
 
-    counter = 0
-    for traject in list_of_trajectories:
-        for station in traject:
-            if station in list_of_stations:
-                counter += 1
-                list_of_stations.remove(station)
+    fraction = calc_fraction(list_of_trajectories, list_of_connections)
 
-    fraction = counter / len(list_of_stations)
-    # franction is aantal verbindingen
     return [list_of_trajectories, total_time, number_of_trajectories, fraction]
+
+
+def calc_fraction(list_of_trajectories, list_of_connections):
+    """
+    list_of_trajectories    :   list of the trajectories
+    list_of_connection      :   list of all the connections
+
+    this function calculates what fraction of the connections are used by the trajectories
+
+    return  :   fraction
+    """
+    l = []
+    for trajectorie in list_of_trajectories:
+        for i in range(len(trajectorie)-1):
+            if (trajectorie[i], trajectorie[i+1]) not in l and (trajectorie[i+1], trajectorie[i]) not in l:
+                l.append((trajectorie[i], trajectorie[i+1]))
+
+    return len(l) / len(list_of_connections)
+
 
 def grade(p, T, min):
     """
@@ -51,6 +61,7 @@ def grade(p, T, min):
     return  :   int
     """
     return p * 10000 - (T * 100 + min)
+
 
 def best_trajectories(data, list_of_stations):
     """
@@ -75,11 +86,13 @@ def best_trajectories(data, list_of_stations):
     return (best_fractions, round(beste_grade, 2), trajectories_and_grades)
     #return (round(beste_grade, 2))
 
+
 def good_trajectories():
     """
     finds what trajects are often found in the combination with a high score
     """
     pass
+
 
 def good_number_trajectories(data):
     """
@@ -97,6 +110,7 @@ def good_number_trajectories(data):
     c_max = Counter(l_max)
 
     return (c_min.most_common(1)[0][0], c_max.most_common(1)[0][0])
+
 
 def best_number_of_trajectories(data):
     """

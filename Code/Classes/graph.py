@@ -63,13 +63,22 @@ class Graph():
     def list_of_nodes(self):
         return [*self.nodes]
 
-    def list_of_connections(self):
+    def dic_of_connections(self):
         dict = {}
 
         for node in self.list_of_nodes():
             dict[node] = self.nodes[node].neighbours
         return dict
-    
+
+    def list_of_connections(self) :
+        l = []
+        for stations, n in self.dic_of_connections().items():
+            for neighbors in n:
+                if (neighbors, stations) not in l:
+                    l.append((stations, neighbors))
+
+        return l
+
     def find_all_trajectories(self, max_time):
         """
         max_time    :   max time that a trajectory can take
@@ -88,7 +97,7 @@ class Graph():
 
                         teller = 0
                         total_time = 0
-                        
+
                         for i in range(len(trajectory)-1):
                             station1 = trajectory[i]
                             station2 = trajectory[i+1]
