@@ -108,7 +108,6 @@ def good_length_trajectories(data):
     for trajectory in data:
         if trajectory[1] > 8000:
             trajectory[0].sort(key=lambda t: len(t))
-            print(trajectory)
             l_min.append(len(trajectory[0][0]))
             l_max.append(len(trajectory[0][-1]))
 
@@ -146,11 +145,24 @@ def list_of_best_trajectories(data, multi_random):
 
     return  :   filterd list
     """
+    data = remove_duplicates(data)
     l = []
     length_min = good_length_trajectories(multi_random)[0]
     length_max = good_length_trajectories(multi_random)[1]
+    print(length_min, length_max)
     for trajectorie in data:
         if len(trajectorie) - 1 > length_min and len(trajectorie) < length_max + 1:
             l.append(trajectorie)
 
     return l
+
+def remove_duplicates(l):
+    l_temp = []
+    for i in l:
+        ni = sorted(i)
+        if ni not in l_temp:
+            l_temp.append(ni)
+
+    return l_temp
+
+
