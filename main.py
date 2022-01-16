@@ -11,8 +11,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.classes import graph
 from Code.Classes.graph import Graph
-from Code.map import Map
-import Code.lijnvoering as lv
+from Code.Classes.map import Map
+import Code.Algorithms.lijnvoering as lv
 from Code.write_output import write_output
 import sys
 
@@ -30,7 +30,6 @@ if __name__ == "__main__":
     map.add_solution(solution)
     map.save_map()
     write_output(solution)
-
 
     # best = lv.best_trajectories(all_trajectories, graph.list_of_nodes())
     # plot_hist(best)
