@@ -25,7 +25,12 @@ pip install -r requirements.txt
 
 ### Structure
 
-The folder Code contains all files needed to run the code, except for the file main.py. The folder datasets contains all csv files needed to run the code. The map output contains all output files and results.
+* /Code: contains all python code
+* /Code/Algorithms: contains code for the different algorithms
+* /Code/Classes: contains all classes needed for the project
+* /Output/Data: contains the output file with all trajectories and score
+* /Output/Maps: contains the maps with all trajectories used
+* /Datasets: contains all csv files needed to run the code
 
 ### Test (Testing)
 
