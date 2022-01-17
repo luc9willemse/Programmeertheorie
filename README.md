@@ -4,14 +4,14 @@
 
 The aim of this project is to design trajectories for the Dutch Railways in a efficient manner. This effectively means that the total time the trains spend in all trajectories should be minimized, while the percentage of connections ridden should be as high as possible. Furthermore, the trajectories are constraint to a pre specified time frame of 2 or 3 hours since longer trajectories aren't feasible in practice. We optimize the following objective function in this project:
 
-#### K = p*10000 - (T*100 + Min)
+#### K = p•10000 - (T•100 + Min)
 
 K: the total combined quality of all trajectories
 p: percentage of connections used in all trajectories
 T: number of trajectories
 Min: total time spend in al trajectories
 
-<!-- ![All intercity stations in the Netherlands](Programmeertheorie/Programmeertheorie/Output/Maps/screenshot.jpg) -->
+![All intercity stations in the Netherlands](Programmeertheorie/Programmeertheorie/Output/Maps/screenshot.jpg)
 
 ## Getting Started
 
