@@ -149,7 +149,7 @@ def list_of_best_trajectories(data, multi_random):
     l = []
     length_min = good_length_trajectories(multi_random)[0]
     length_max = good_length_trajectories(multi_random)[1]
-    print(length_min, length_max)
+    # print(length_min, length_max)
     for trajectorie in data:
         if len(trajectorie) - 1 > length_min and len(trajectorie) < length_max + 1:
             l.append(trajectorie)

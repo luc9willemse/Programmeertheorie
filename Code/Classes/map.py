@@ -5,7 +5,7 @@ Project group   :   10
 Programmeertheorie
 
 map.py:
-this file generates a map with al the stations
+defines the Map class as well as functions to manipulate it
 """
 import folium
 import webbrowser
@@ -21,13 +21,16 @@ class Map():
 
     def create_map(self):
         """
-        this function creates a map object
+        creates a map object
         """
+        # create map instance
         self.map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
 
+        # add all stations as markers
         for station in self.stations:
             folium.CircleMarker(location=self.stations[station].location, radius=5, tooltip=station, color='#00C4B3', fill_color='#00C4B3', fill=True).add_to(self.map)
 
+        # add connections between stations
         for station in self.connections:
             neighbours = self.connections[station]
             for neighbour in neighbours:
@@ -39,7 +42,7 @@ class Map():
         stations    :   list of stations on trajectory
         color       :   color of trajectory
 
-        this function adds a trajectory with color
+        adds a trajectory with color
         """
 
         group_name = stations[0] + ' - ' + stations[-1]
@@ -56,13 +59,21 @@ class Map():
         feature_group.add_to(self.map)
 
     def add_solution(self, list):
+        """
+        list    :   list of trajectories
+
+        adds a solution consisting of trajectories
+        """
         trajectories = list[0]
         for trajectory in trajectories:
             color = self.colors[trajectories.index(trajectory)]
             self.add_trajectory(trajectory, color)
 
     def save_map(self):
+        """
+        saves the map in .html file and opens in browser
+        """
         folium.LayerControl().add_to(self.map)
-        self.map.save('Output/Maps/HollandMap.html')
-        webbrowser.open_new_tab('Output/Maps/HollandMap.html')
+        self.map.save('Output/Maps/' + self.type + 'Map.html')
+        webbrowser.open_new_tab('Output/Maps/' + self.type + 'Map.html')
         
