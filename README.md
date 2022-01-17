@@ -11,7 +11,7 @@ p: percentage of connections used in all trajectories
 T: number of trajectories
 Min: total time spend in al trajectories
 
-![All intercity stations in the Netherlands](Programmeertheorie/Programmeertheorie/Output/Maps/screenshot.jpg)
+![All intercity stations in the Netherlands](/Output/Maps/screenshot.jpg)
 
 ## Getting Started
 
