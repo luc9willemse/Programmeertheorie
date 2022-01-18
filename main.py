@@ -24,11 +24,12 @@ if __name__ == "__main__":
 
     all_trajectories = graph.find_all_trajectories(120)
     l_all_random = lv.multiple_random_tractories(all_trajectories, graph.list_of_connections())
+    print(l_all_random[1])
     solution = lv.random_trajectory_generator(all_trajectories, graph.list_of_connections())
     grade = lv.grade(solution[3], solution[2], solution[1])
     l_best_tra = lv.list_of_best_trajectories(all_trajectories, l_all_random[2])
     print(len(l_best_tra))
-    #print(lv.check_for_duplicates(l_best_tra))
+    print(lv.multiple_random_tractories(l_best_tra, graph.list_of_connections())[1])
     map = Map(graph.nodes, graph.dic_of_connections(), type)
     map.add_solution(solution)
     map.save_map()

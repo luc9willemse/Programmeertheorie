@@ -9,6 +9,7 @@ this file contains the algoritems that find the lijnvoering
 """
 import random
 from collections import Counter
+import re
 
 def random_trajectory_generator(data, list_of_connections):
     """
@@ -19,8 +20,8 @@ def random_trajectory_generator(data, list_of_connections):
     return  :   list with the randomly chosen trajects, total time of the trajects,
                 number of trajects and the fraction of the station that are used
     """
-    #number_of_trajectories = random.randint(1, 7)
-    number_of_trajectories = 5
+    number_of_trajectories = random.randint(1, 7)
+    #number_of_trajectories = 5
     list_of_trajectories = []
     total_time = 0
     for i in range(number_of_trajectories):
@@ -77,7 +78,7 @@ def multiple_random_tractories(data, list_of_connections):
     trajectories_and_grades = []
     best_fractions = []
     beste_grade = 0
-    for i in range(10000):
+    for i in range(100000):
         ran = random_trajectory_generator(data, list_of_connections)
         trajectories_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         if grade(ran[3], ran[2], ran[1]) > beste_grade:
@@ -134,6 +135,27 @@ def best_number_of_trajectories(data):
 
     return c.most_common(1)[0][0]
 
+def begin_and_end(data, number_of_trajects):
+    """
+    data    :   data with list of tuples, (trajectories, grade)
+
+    finds good begin and end stations
+
+    return  :   good begin and end stations
+    """
+    l = []
+    for trajectorys in data:
+        if trajectorys[1] > 8000:
+            for trajectory in trajectorys[0]:
+                l.append(trajectory[0])
+                l.append(trajectory[-1])
+
+    l_sort = sorted(l,key=l.count,reverse=True)
+    l_sort = list(dict.fromkeys(l_sort))
+
+    return l_sort[0:((number_of_trajects*2)+1)]
+
+
 def list_of_best_trajectories(data, multi_random):
     """
     data                :   list of all trajectories
@@ -145,24 +167,15 @@ def list_of_best_trajectories(data, multi_random):
 
     return  :   filterd list
     """
-    data = remove_duplicates(data)
-    l = []
+    d = {}
     length_min = good_length_trajectories(multi_random)[0]
     length_max = good_length_trajectories(multi_random)[1]
+    start_station = begin_and_end(multi_random, best_number_of_trajectories(multi_random))
     print(length_min, length_max)
-    for trajectorie in data:
-        if len(trajectorie) - 1 > length_min and len(trajectorie) < length_max + 1:
-            l.append(trajectorie)
+    for trajectorie, grade in data.items():
+        if len(trajectorie) - 1 > length_min and len(trajectorie) < length_max + 1 and trajectorie[0] in start_station and trajectorie[-1] in start_station:
+            d[trajectorie] = grade
 
-    return l
-
-def remove_duplicates(l):
-    l_temp = []
-    for i in l:
-        ni = sorted(i)
-        if ni not in l_temp:
-            l_temp.append(ni)
-
-    return l_temp
+    return d
 
 
