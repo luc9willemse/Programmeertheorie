@@ -1,3 +1,12 @@
+"""
+Name            :   Luc Willemse, Minne Sandstra, Stijn Maatje
+UvAnetID        :   14012391, 12261440, 12276529
+Project group   :   10
+Programmeertheorie
+
+graph.py:
+defines the Graph class as well as functions to manipulate it
+"""
 import csv
 import os
 from .node import Node
@@ -7,7 +16,7 @@ class Graph():
     def __init__(self, size):
         self.stations_location = self.get_file_location(size, 'stations')
         self.connections_location = self.get_file_location(size, 'connections')
-        self.nodes = self.load_nodes()
+        self.nodes = self.load_stations()
         self.nx_graph = nx.Graph()
         self.load_connections()
 
@@ -24,22 +33,20 @@ class Graph():
             path_file = os.path.dirname(os.path.abspath(__file__))[0:-8] + '/../Datasets/Connecties' + size + '.csv'
         return path_file
 
-
-    # waar wordt de teller voor gebruikt in onderste twee functies?
-    def load_nodes(self):
+    def load_stations(self):
         """
         loads every station in a Node class
         """
         file = self.stations_location
         nodes = {}
+
+        # open file with station information
         with open(file, "r") as f:
             csv_reader = csv.reader(f, delimiter=',')
-            teller = 0
+            next(csv_reader)
+
             for row in csv_reader:
-                if teller == 0:
-                    teller += 1
-                else:
-                    nodes[row[0]] = Node(row[0], row[1], row[2])
+                nodes[row[0]] = Node(row[0], row[1], row[2])
         return nodes
 
     def load_connections(self):
@@ -48,29 +55,39 @@ class Graph():
         """
         file = self.connections_location
         connections = {}
+        
+        # open file with connection information
         with open(file, "r") as f:
             csv_reader = csv.reader(f, delimiter=',')
-            teller = 0
-            for row in csv_reader:
-                if teller == 0:
-                    teller += 1
-                else:
-                    self.nodes[row[0]].add_neighbour(row[1], float(row[2]))
-                    self.nodes[row[1]].add_neighbour(row[0], float(row[2]))
+            next(csv_reader)
 
-                    self.nx_graph.add_edge(row[0], row[1], weight=row[2])
+            # add all connections to all Node instances, and to networkx graph
+            for row in csv_reader:
+                self.nodes[row[0]].add_neighbour(row[1], float(row[2]))
+                self.nodes[row[1]].add_neighbour(row[0], float(row[2]))
+
+                self.nx_graph.add_edge(row[0], row[1], weight=row[2])
 
     def list_of_nodes(self):
+        """
+        returns list of the nodes (stations)
+        """
         return [*self.nodes]
 
     def dic_of_connections(self):
+        """
+        returns dictionary of all connections
+        """
         dict = {}
 
         for node in self.list_of_nodes():
             dict[node] = self.nodes[node].neighbours
         return dict
 
-    def list_of_connections(self) :
+    def list_of_connections(self):
+        """
+        returns list of all connections
+        """
         l = []
         for stations, n in self.dic_of_connections().items():
             for neighbors in n:

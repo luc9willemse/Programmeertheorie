@@ -17,11 +17,15 @@ from Code.write_output import write_output
 import sys
 
 if __name__ == "__main__":
+    # checks if proper amount and type of arguments are given in command line
     if len(sys.argv) != 2 or (sys.argv[1] != 'Holland' and sys.argv[1] != 'Nationaal'):
-        sys.exit("Usage: python3 Main.py Holland/Nationaal")
+        sys.exit("Usage: python3 main.py Holland/Nationaal")
+
+    # create Graph instance
     type = sys.argv[1]
     graph = Graph(type)
 
+    # generate a random solution
     all_trajectories = graph.find_all_trajectories(120)
     l_all_random = lv.multiple_random_tractories(all_trajectories, graph.list_of_connections())
     print(l_all_random[1])
@@ -33,6 +37,8 @@ if __name__ == "__main__":
     map = Map(graph.nodes, graph.dic_of_connections(), type)
     map.add_solution(solution)
     map.save_map()
+
+    # write final output
     write_output(solution, grade)
 
     # best = lv.best_trajectories(all_trajectories, graph.list_of_nodes())
