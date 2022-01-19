@@ -11,6 +11,50 @@ import random
 from collections import Counter
 import re
 
+def hill_climb(data, list_of_connections):
+    b = False
+    score = 0
+    t = list(data.keys())[random.randint(0,(len(data)-1))]
+    trajectories = []
+    trajectories.append(t)
+    time = int(data[t])
+    while b == False:
+        teller = 0
+        best_trajectory = []
+        for trajectory in data:
+            trajectories.append(trajectory)
+            g = grade(calc_fraction(trajectories, list_of_connections), len(trajectories), (time + int(data[trajectory])))
+            if g > score:
+                score = g
+                best_time = int(data[trajectory])
+                best_trajectory = trajectory
+            else:
+                teller += 1
+
+            trajectories.remove(trajectory)
+
+        if teller == len(data):
+            b = True
+        else:
+            trajectories.append(best_trajectory)
+            time += best_time
+
+    return (trajectories, time, score)
+
+def multi_hill_climb(data, list_of_connections):
+    score = 0
+    trajectories = []
+    time = []
+    for i in range(1000):
+        hc = hill_climb(data, list_of_connections)
+        if hc[2] > score:
+            score = hc[2]
+            trajectories = hc[0]
+            time = hc[1]
+
+    return (trajectories, time, score)
+
+
 def random_trajectory_generator(data, list_of_connections):
     """
     data    :   datasets (dict of trajects)
@@ -62,7 +106,7 @@ def grade(p, T, min):
 
     return  :   int
     """
-    return p * 10000 - (T * 100 + min)
+    return p * 10000 - ((T * 100) + min)
 
 
 def multiple_random_tractories(data, list_of_connections):

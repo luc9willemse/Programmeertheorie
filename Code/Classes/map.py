@@ -55,7 +55,7 @@ class Map():
 
             points = station1.location, station2.location
             folium.PolyLine(locations=points, color=color, weight=2.5, tooltip=value).add_to(feature_group)
-        
+
         feature_group.add_to(self.map)
 
     def add_solution(self, list):
@@ -76,4 +76,3 @@ class Map():
         folium.LayerControl().add_to(self.map)
         self.map.save('Output/Maps/' + self.type + 'Map.html')
         webbrowser.open_new_tab('Output/Maps/' + self.type + 'Map.html')
-        
