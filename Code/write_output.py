@@ -1,6 +1,6 @@
 import csv
 
-def write_output(solution, grade):
+def write_output(solution, grade, time):
     """
     write a csv file with the solution
     """
@@ -16,7 +16,7 @@ def write_output(solution, grade):
         writer.writerow(['train_' + str(i+1), solution[0][i]])
 
     # write final information
-    writer.writerow(['Total time: ' + str(solution[1])])
+    writer.writerow(['Total time: ' + str(time)])
     writer.writerow(["Score: " + str(round(grade, 2))])
 
     # close file

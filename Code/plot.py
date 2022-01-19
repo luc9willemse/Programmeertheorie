@@ -9,6 +9,7 @@ this file generates a plot of the data
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 
 def plot_hist(data):
     l = []
@@ -17,8 +18,12 @@ def plot_hist(data):
 
     x = np.array(l)
 
-    plt.hist(x, bins=60)
-    plt.xlabel("K (value of objective function)")
-    plt.ylabel("Number of tractories")
-    plt.title("Number of trajectories with scores (highest score: " + str(data[1]) + ")")
+    plt.axvline(data[3], color='red', linewidth=2, label="Mean: " + str(round(data[3], 2)))
+    sns.distplot(x, hist = True, kde = True,
+                 kde_kws = {'linewidth': 2},
+                 label = "Scores")
+    plt.xlabel("Score")
+    plt.ylabel("fraction of 100.000 tractories")
+    plt.title("Scores of trajectories (highest score: " + str(data[1]) + ")")
+    plt.legend()
     plt.show()

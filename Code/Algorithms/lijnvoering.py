@@ -122,14 +122,21 @@ def multiple_random_tractories(data, list_of_connections):
     trajectories_and_grades = []
     best_fractions = []
     beste_grade = 0
+    total_grade = 0
+    best_time = 0
     for i in range(100000):
         ran = random_trajectory_generator(data, list_of_connections)
         trajectories_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
-        if grade(ran[3], ran[2], ran[1]) > beste_grade:
+        g = grade(ran[3], ran[2], ran[1])
+        total_grade += g
+        if g > beste_grade:
             best_fractions = ran[0]
             beste_grade = grade(ran[3], ran[2], ran[1])
+            best_time = ran[1]
 
-    return (best_fractions, round(beste_grade, 2), trajectories_and_grades)
+    average_grade = total_grade/100000
+
+    return (best_fractions, round(beste_grade, 2), trajectories_and_grades, average_grade, best_time)
     #return (round(beste_grade, 2))
 
 

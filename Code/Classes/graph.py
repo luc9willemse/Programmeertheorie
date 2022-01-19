@@ -55,7 +55,7 @@ class Graph():
         """
         file = self.connections_location
         connections = {}
-        
+
         # open file with connection information
         with open(file, "r") as f:
             csv_reader = csv.reader(f, delimiter=',')
