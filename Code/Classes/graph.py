@@ -11,6 +11,8 @@ import csv
 import os
 from .node import Node
 import networkx as nx
+import numpy as np
+import pandas as pd
 
 class Graph():
     def __init__(self, size):
@@ -106,12 +108,10 @@ class Graph():
         return  :   dict
         """
         dict_trajectories = {}
-        testl = []
         for departure_station in self.list_of_nodes():
             for arrival_station in self.list_of_nodes():
                 if departure_station != arrival_station:
                     for trajectory in list(nx.all_simple_paths(self.nx_graph, departure_station, arrival_station, cutoff=18)):
-
                         teller = 0
                         total_time = 0
 
@@ -122,13 +122,8 @@ class Graph():
                             total_time += self.nodes[station1].neighbours[station2]
                             teller += 1
 
-                        if len(trajectory) == 18:
-                            testl.append(total_time)
-
                         if total_time < (max_time + 1) and tuple(trajectory)[::-1] not in dict_trajectories:
                             dict_trajectories[tuple(trajectory)] = total_time
-
-        m = min(testl)
 
         l = []
         teller = 0
@@ -136,10 +131,52 @@ class Graph():
             teller += 1
             l.append([i, j])
 
-        # np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+        np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
 
-        # df = pd.DataFrame(l)
-        # df.to_csv('All_trajects_nationaal.csv')
+        df = pd.DataFrame(l)
+        df.to_csv('All_trajects_nationaal.csv')
         return dict_trajectories
+
+
+    # def find_all_trajectories(self, max_time):
+    #     """
+    #     max_time    :   max time that a trajectory can take
+
+    #     creates a dict with all the possible trajectories as keys and the trajectory time
+    #     as value
+
+    #     return  :   dict
+    #     """
+    #     dict_trajectories = {}
+    #     for departure_station in self.list_of_nodes():
+    #         for arrival_station in self.list_of_nodes():
+    #             if departure_station != arrival_station:
+    #                 trajectory = list(nx.shortest_path(self.nx_graph, departure_station, arrival_station))
+    #                 teller = 0
+    #                 total_time = 0
+
+    #                 for i in range(len(trajectory)-1):
+    #                     station1 = trajectory[i]
+    #                     station2 = trajectory[i+1]
+
+    #                     total_time += self.nodes[station1].neighbours[station2]
+    #                     teller += 1
+
+    #                 if total_time < (max_time + 1) and tuple(trajectory)[::-1] not in dict_trajectories:
+    #                     dict_trajectories[tuple(trajectory)] = total_time
+
+
+    #     l = []
+    #     teller = 0
+    #     for i, j in dict_trajectories.items():
+    #         teller += 1
+    #         l.append([i, j])
+
+    #     # np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+
+    #     # df = pd.DataFrame(l)
+    #     # df.to_csv('All_trajects_nationaal.csv')
+    #     return dict_trajectories
+
 
 

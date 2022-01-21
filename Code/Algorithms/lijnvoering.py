@@ -10,6 +10,7 @@ this file contains the algoritems that find the lijnvoering
 import random
 from collections import Counter
 import re
+import time
 
 def hill_climb(data, list_of_connections):
     b = False
@@ -17,13 +18,16 @@ def hill_climb(data, list_of_connections):
     t = list(data.keys())[random.randint(0,(len(data)-1))]
     trajectories = []
     trajectories.append(t)
-    time = int(data[t])
+    t = int(data[t])
     while b == False:
         teller = 0
         best_trajectory = []
         for trajectory in data:
             trajectories.append(trajectory)
-            g = grade(calc_fraction(trajectories, list_of_connections), len(trajectories), (time + int(data[trajectory])))
+            #startgrade = time.time_ns()
+            g = grade(calc_fraction(trajectories, list_of_connections), len(trajectories), (t + int(data[trajectory])))
+            #stopgrade = time.time_ns()
+            #print("grade:", stopgrade-startgrade)
             if g > score:
                 score = g
                 best_time = int(data[trajectory])
@@ -33,13 +37,14 @@ def hill_climb(data, list_of_connections):
 
             trajectories.remove(trajectory)
 
+
         if teller == len(data):
             b = True
         else:
             trajectories.append(best_trajectory)
-            time += best_time
+            t += best_time
 
-    return (trajectories, time, score)
+    return (trajectories, t, score)
 
 def multi_hill_climb(data, list_of_connections):
     score = 0
@@ -228,5 +233,6 @@ def list_of_best_trajectories(data, multi_random):
             d[trajectorie] = grade
 
     return d
+
 
 
