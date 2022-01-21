@@ -69,7 +69,7 @@ def random_trajectory_generator(data, list_of_connections):
     return  :   list with the randomly chosen trajects, total time of the trajects,
                 number of trajects and the fraction of the station that are used
     """
-    number_of_trajectories = random.randint(1, 7)
+    number_of_trajectories = random.randint(1, 13)
     #number_of_trajectories = 5
     list_of_trajectories = []
     total_time = 0
@@ -129,7 +129,8 @@ def multiple_random_tractories(data, list_of_connections):
     beste_grade = 0
     total_grade = 0
     best_time = 0
-    for i in range(100000):
+    t = 10000
+    for i in range(t):
         ran = random_trajectory_generator(data, list_of_connections)
         trajectories_and_grades.append((ran[0], round(grade(ran[3], ran[2], ran[1]), 2)))
         g = grade(ran[3], ran[2], ran[1])
@@ -139,7 +140,7 @@ def multiple_random_tractories(data, list_of_connections):
             beste_grade = grade(ran[3], ran[2], ran[1])
             best_time = ran[1]
 
-    average_grade = total_grade/100000
+    average_grade = total_grade/t
 
     return (best_fractions, round(beste_grade, 2), trajectories_and_grades, average_grade, best_time)
     #return (round(beste_grade, 2))
