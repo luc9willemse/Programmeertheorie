@@ -10,13 +10,12 @@ this file contains the algoritems that find the lijnvoering
 import random
 from collections import Counter
 import re
-import time
 
-def hill_climb(data, list_of_connections):
+def alg(data, list_of_connections):
     b = False
     score = 0
-    t = list(data.keys())[random.randint(0,(len(data)-1))]
     trajectories = []
+    t = list(data.keys())[random.randint(0,(len(data)-1))]
     trajectories.append(t)
     t = int(data[t])
     while b == False:
@@ -44,20 +43,43 @@ def hill_climb(data, list_of_connections):
             trajectories.append(best_trajectory)
             t += best_time
 
-    return (trajectories, t, score)
+    temp_trajectories = trajectories[:]
+    for i in range(len(trajectories)):
+        b = False
+        temp_time = data[temp_trajectories[i]]
+        for trajectory in data:
+            ti = t
+            temp_trajectories[i] = trajectory
+            g = grade(calc_fraction(temp_trajectories, list_of_connections), len(temp_trajectories), (ti - temp_time + int(data[trajectory])))
+            if g > score:
+                score = g
+                best_time = ti - temp_time + int(data[trajectory])
+                best_trajectory = trajectory
+                b = True
 
-def multi_hill_climb(data, list_of_connections):
+        if b == True:
+            temp_trajectories[i] = best_trajectory
+        else:
+            temp_trajectories[i] = trajectories[i]
+
+    trajectories = temp_trajectories
+
+    return (trajectories, best_time, score)
+
+def multi_alg(data, list_of_connections):
     score = 0
     trajectories = []
     time = []
-    for i in range(1000):
-        hc = hill_climb(data, list_of_connections)
+    dict_of_scores = {}
+    for i in range(4):
+        hc = alg(data, list_of_connections)
+        dict_of_scores[tuple(hc[0])] = hc[2]
         if hc[2] > score:
             score = hc[2]
             trajectories = hc[0]
             time = hc[1]
 
-    return (trajectories, time, score)
+    return (trajectories, time, score, dict_of_scores)
 
 
 def random_trajectory_generator(data, list_of_connections):
