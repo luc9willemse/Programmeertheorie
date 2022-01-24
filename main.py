@@ -18,6 +18,7 @@ from Code.write_output import write_output
 import sys
 import time
 from Code.csv_reader import all_trajectories_national
+from Code.Algorithms.restart_hill_climb import RestartHC
 
 if __name__ == "__main__":
     # checks if proper amount and type of arguments are given in command line
@@ -27,6 +28,10 @@ if __name__ == "__main__":
     # create Graph instance
     type = sys.argv[1]
     graph = Graph(type)
+
+    # Restart Hill Climb algorithm
+    # restartHC = RestartHC(graph)
+    # solution = restartHC.test()
 
     # generate a random solution
     #all_trajectories = graph.find_all_trajectories(120)
