@@ -6,3 +6,6 @@ class Node():
 
     def add_neighbour(self, neighbour, value):
         self.neighbours[neighbour] = value
+    
+    def remove_neighbour(self, neighbour):
+        self.neighbours.pop(neighbour)

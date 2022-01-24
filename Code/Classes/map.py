@@ -13,7 +13,7 @@ import seaborn as sns
 
 class Map():
     def __init__(self, stations, connections, type):
-        self.colors = sns.color_palette('bright').as_hex()
+        self.colors = sns.color_palette('rocket', n_colors=20).as_hex()
         self.type = type
         self.stations = stations
         self.connections = connections
@@ -64,7 +64,7 @@ class Map():
 
         adds a solution consisting of trajectories
         """
-        trajectories = list[0]
+        trajectories = list
         for trajectory in trajectories:
             color = self.colors[trajectories.index(trajectory)]
             self.add_trajectory(trajectory, color)
