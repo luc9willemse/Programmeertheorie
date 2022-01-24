@@ -62,12 +62,12 @@ def multi_hill_climb(data, list_of_connections):
 
 def random_trajectory_generator(data, list_of_connections):
     """
-    data    :   datasets (dict of trajects)
+    data    :   datasets (dict of trajectories)
 
-    this function picks random trajects
+    this function picks random trajectories
 
-    return  :   list with the randomly chosen trajects, total time of the trajects,
-                number of trajects and the fraction of the station that are used
+    return  :   list with the randomly chosen trajectories, total time of the trajectories,
+                number of trajectories and the fraction of the station that are used
     """
     number_of_trajectories = random.randint(1, 13)
     #number_of_trajectories = 5
@@ -93,10 +93,10 @@ def calc_fraction(list_of_trajectories, list_of_connections):
     return  :   fraction
     """
     l = []
-    for trajectorie in list_of_trajectories:
-        for i in range(len(trajectorie)-1):
-            if (trajectorie[i], trajectorie[i+1]) not in l and (trajectorie[i+1], trajectorie[i]) not in l:
-                l.append((trajectorie[i], trajectorie[i+1]))
+    for trajectory in list_of_trajectories:
+        for i in range(len(trajectory)-1):
+            if (trajectory[i], trajectory[i+1]) not in l and (trajectory[i+1], trajectory[i]) not in l:
+                l.append((trajectory[i], trajectory[i+1]))
 
     return len(l) / len(list_of_connections)
 
@@ -104,10 +104,10 @@ def calc_fraction(list_of_trajectories, list_of_connections):
 def grade(p, T, min):
     """
     p   :   fraction of the total stations
-    T   :   number of trajects
-    min :   total min of the trajects
+    T   :   number of trajectories
+    min :   total min of the trajectories
 
-    grades the the chosen trajects
+    grades the the chosen trajectories
 
     return  :   int
     """
@@ -192,7 +192,7 @@ def best_number_of_trajectories(data):
 
     return c.most_common(1)[0][0]
 
-def begin_and_end(data, number_of_trajects):
+def begin_and_end(data, number_of_trajectories):
     """
     data    :   data with list of tuples, (trajectories, grade)
 
@@ -201,16 +201,16 @@ def begin_and_end(data, number_of_trajects):
     return  :   good begin and end stations
     """
     l = []
-    for trajectorys in data:
-        if trajectorys[1] > 8000:
-            for trajectory in trajectorys[0]:
+    for trajectories in data:
+        if trajectories[1] > 8000:
+            for trajectory in trajectories[0]:
                 l.append(trajectory[0])
                 l.append(trajectory[-1])
 
     l_sort = sorted(l,key=l.count,reverse=True)
     l_sort = list(dict.fromkeys(l_sort))
 
-    return l_sort[0:((number_of_trajects*2)+1)]
+    return l_sort[0:((number_of_trajectories*2)+1)]
 
 
 def list_of_best_trajectories(data, multi_random):
@@ -229,9 +229,9 @@ def list_of_best_trajectories(data, multi_random):
     length_max = good_length_trajectories(multi_random)[1]
     start_station = begin_and_end(multi_random, best_number_of_trajectories(multi_random))
     print(length_min, length_max)
-    for trajectorie, grade in data.items():
-        if len(trajectorie) - 1 > length_min and len(trajectorie) < length_max + 1 and trajectorie[0] in start_station and trajectorie[-1] in start_station:
-            d[trajectorie] = grade
+    for trajectory, grade in data.items():
+        if len(trajectory) - 1 > length_min and len(trajectory) < length_max + 1 and trajectory[0] in start_station and trajectory[-1] in start_station:
+            d[trajectory] = grade
 
     return d
 
