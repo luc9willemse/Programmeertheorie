@@ -13,7 +13,7 @@ import seaborn as sns
 
 class Map():
     def __init__(self, stations, connections, type):
-        self.colors = sns.color_palette('rocket', n_colors=20).as_hex()
+        self.colors = sns.color_palette('rocket', n_colors=len(self.connections)).as_hex()
         self.type = type
         self.stations = stations
         self.connections = connections
