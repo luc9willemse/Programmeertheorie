@@ -34,9 +34,9 @@ if __name__ == "__main__":
     # solution = restartHC.test()
 
     # generate a random solution
-    all_trajectories = graph.find_all_trajectories(120)
+    #all_trajectories = graph.find_all_trajectories(120)
     # print(all_trajectories[('Alkmaar', 'Den Helder')])
-    #all_trajectories = all_trajectories_national()
+    all_trajectories = all_trajectories_national()
     # print(all_trajectories[('Alkmaar', 'Den Helder')])
 
     #l_all_random = lv.multiple_random_tractories(all_trajectories, graph.list_of_connections())
