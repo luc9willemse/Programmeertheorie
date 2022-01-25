@@ -59,7 +59,7 @@ class Graph():
         """
         file = self.connections_location
         connections = {}
-        
+
         # open file with connection information
         with open(file, "r") as f:
             csv_reader = csv.reader(f, delimiter=',')
@@ -71,7 +71,7 @@ class Graph():
                 self.nodes[row[1]].add_neighbour(row[0], float(row[2]))
 
                 self.nx_graph.add_edge(row[0], row[1], weight=row[2])
-    
+
     def add_afsluitdijk(self):
         self.nodes['Den Helder'].add_neighbour('Leeuwarden', 30.0)
         self.nodes['Leeuwarden'].add_neighbour('Den Helder', 30.0)
@@ -79,13 +79,13 @@ class Graph():
         self.nx_graph.add_edge('Den Helder', 'Leeuwarden', weight=30.0)
 
     def remove_station(self, deleted_station_str):
-        deleted_station = self.nodes[deleted_station_str] 
+        deleted_station = self.nodes[deleted_station_str]
 
         for station in self.nodes:
             if deleted_station_str in self.nodes[station].neighbours:
                 self.nodes[station].remove_neighbour(deleted_station_str)
         self.nodes.pop(deleted_station_str)
-    
+
     def number_of_connections(self):
         total_connections = 0
 

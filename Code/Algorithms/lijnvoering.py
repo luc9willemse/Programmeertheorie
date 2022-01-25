@@ -71,7 +71,7 @@ def multi_alg(data, list_of_connections):
     trajectories = []
     time = []
     dict_of_scores = {}
-    for i in range(4):
+    for i in range(13):
         hc = alg(data, list_of_connections)
         dict_of_scores[tuple(hc[0])] = hc[2]
         if hc[2] > score:

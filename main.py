@@ -34,9 +34,9 @@ if __name__ == "__main__":
     # solution = restartHC.test()
 
     # generate a random solution
-    #all_trajectories = graph.find_all_trajectories(120)
+    all_trajectories = graph.find_all_trajectories(120)
     # print(all_trajectories[('Alkmaar', 'Den Helder')])
-    all_trajectories = all_trajectories_national()
+    #all_trajectories = all_trajectories_national()
     # print(all_trajectories[('Alkmaar', 'Den Helder')])
 
     #l_all_random = lv.multiple_random_tractories(all_trajectories, graph.list_of_connections())
@@ -47,12 +47,13 @@ if __name__ == "__main__":
     stop = time.time()
     print(m_alg[0], m_alg[1], m_alg[2])
     print(stop-start)
+    write_output(m_alg, m_alg[2], m_alg[1])
     map = Map(graph.nodes, graph.dic_of_connections(), type)
-    map.add_solution(m_alg)
+    map.add_solution(m_alg[0])
     map.save_map()
 
     # # write final output
-    write_output(m_alg, m_alg[2], m_alg[1])
+
     #plot_hist(m_alg)
     # best = lv.best_trajectories(all_trajectories, graph.list_of_nodes())
     # plot_hist(best)
