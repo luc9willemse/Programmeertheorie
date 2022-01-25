@@ -16,11 +16,13 @@ import pandas as pd
 
 class Graph():
     def __init__(self, size):
+        self.size = size # Holland/Nationaal
         self.stations_location = self.get_file_location(size, 'stations')
         self.connections_location = self.get_file_location(size, 'connections')
         self.nodes = self.load_stations()
         self.nx_graph = nx.Graph()
         self.load_connections()
+        self.number_of_connections = self.number_of_connections()
 
     def get_file_location(self, size, type):
         """
@@ -69,6 +71,28 @@ class Graph():
                 self.nodes[row[1]].add_neighbour(row[0], float(row[2]))
 
                 self.nx_graph.add_edge(row[0], row[1], weight=row[2])
+
+    def add_afsluitdijk(self):
+        self.nodes['Den Helder'].add_neighbour('Leeuwarden', 30.0)
+        self.nodes['Leeuwarden'].add_neighbour('Den Helder', 30.0)
+
+        self.nx_graph.add_edge('Den Helder', 'Leeuwarden', weight=30.0)
+
+    def remove_station(self, deleted_station_str):
+        deleted_station = self.nodes[deleted_station_str]
+
+        for station in self.nodes:
+            if deleted_station_str in self.nodes[station].neighbours:
+                self.nodes[station].remove_neighbour(deleted_station_str)
+        self.nodes.pop(deleted_station_str)
+
+    def number_of_connections(self):
+        total_connections = 0
+
+        for station in self.nodes:
+            total_connections += len(self.dic_of_connections()[station])
+
+        return total_connections/2
 
     def list_of_nodes(self):
         """

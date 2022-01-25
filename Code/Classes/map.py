@@ -13,10 +13,10 @@ import seaborn as sns
 
 class Map():
     def __init__(self, stations, connections, type):
-        self.colors = sns.color_palette('bright').as_hex()
         self.type = type
         self.stations = stations
         self.connections = connections
+        self.colors = sns.color_palette('bright', 15).as_hex()
         self.create_map()
 
     def create_map(self):
@@ -25,7 +25,7 @@ class Map():
         """
         # create map instance
         self.map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
-
+        print(self.colors)
         # add all stations as markers
         for station in self.stations:
             folium.CircleMarker(location=self.stations[station].location, radius=5, tooltip=station, color='#00C4B3', fill_color='#00C4B3', fill=True).add_to(self.map)
@@ -64,7 +64,7 @@ class Map():
 
         adds a solution consisting of trajectories
         """
-        trajectories = list[0]
+        trajectories = list
         for trajectory in trajectories:
             color = self.colors[trajectories.index(trajectory)]
             self.add_trajectory(trajectory, color)
