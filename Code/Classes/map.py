@@ -25,7 +25,6 @@ class Map():
         """
         # create map instance
         self.map = folium.Map(location=[52.388, 4.638], zoom_start=8, tiles='Cartodb dark_matter')
-        print(self.colors)
         # add all stations as markers
         for station in self.stations:
             folium.CircleMarker(location=self.stations[station].location, radius=5, tooltip=station, color='#00C4B3', fill_color='#00C4B3', fill=True).add_to(self.map)

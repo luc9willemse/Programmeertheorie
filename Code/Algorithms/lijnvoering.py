@@ -23,10 +23,7 @@ def alg(data, list_of_connections):
         best_trajectory = []
         for trajectory in data:
             trajectories.append(trajectory)
-            #startgrade = time.time_ns()
             g = grade(calc_fraction(trajectories, list_of_connections), len(trajectories), (t + int(data[trajectory])))
-            #stopgrade = time.time_ns()
-            #print("grade:", stopgrade-startgrade)
             if g > score:
                 score = g
                 best_time = int(data[trajectory])
@@ -71,8 +68,7 @@ def multi_alg(data, list_of_connections):
     trajectories = []
     time = []
     dict_of_scores = {}
-    for i in range(2):
-        print(i)
+    for i in range(10):
         hc = alg(data, list_of_connections)
         dict_of_scores[tuple(hc[0])] = hc[2]
         if hc[2] > score:

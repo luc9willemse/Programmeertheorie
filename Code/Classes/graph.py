@@ -9,6 +9,7 @@ defines the Graph class as well as functions to manipulate it
 """
 import csv
 import os
+from turtle import circle
 from .node import Node
 import networkx as nx
 import numpy as np
@@ -136,7 +137,6 @@ class Graph():
             for arrival_station in self.list_of_nodes():
                 if departure_station != arrival_station:
                     for trajectory in list(nx.all_simple_paths(self.nx_graph, departure_station, arrival_station, cutoff=18)):
-                        teller = 0
                         total_time = 0
 
                         for i in range(len(trajectory)-1):
@@ -144,21 +144,34 @@ class Graph():
                             station2 = trajectory[i+1]
 
                             total_time += self.nodes[station1].neighbours[station2]
-                            teller += 1
 
                         if total_time < (max_time + 1) and tuple(trajectory)[::-1] not in dict_trajectories:
                             dict_trajectories[tuple(trajectory)] = total_time
+                else:
+                    for station in self.dic_of_connections()[arrival_station]:
+                        for trajectory in list(nx.all_simple_paths(self.nx_graph, arrival_station, station, cutoff=18)):
+                            if len(trajectory) > 2:
+                                trajectory.append(arrival_station)
 
-        l = []
-        teller = 0
-        for i, j in dict_trajectories.items():
-            teller += 1
-            l.append([i, j])
+                                total_time = 0
 
-        np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+                                for i in range(len(trajectory)-1):
+                                    station1 = trajectory[i]
+                                    station2 = trajectory[i+1]
 
-        df = pd.DataFrame(l)
-        df.to_csv('All_trajects_nationaal.csv')
+                                    total_time += self.nodes[station1].neighbours[station2]
+
+                                if total_time < (max_time + 1) and tuple(trajectory)[::-1] not in dict_trajectories:
+                                    dict_trajectories[tuple(trajectory)] = total_time
+
+        # l = []
+        # for i, j in dict_trajectories.items():
+        #     l.append([i, j])
+
+        # np.savetxt("All_trajects_nationaal.csv", l, delimiter =", ", fmt ='% s')
+
+        # df = pd.DataFrame(l)
+        # df.to_csv('All_trajects_nationaal.csv')
         return dict_trajectories
 
 
