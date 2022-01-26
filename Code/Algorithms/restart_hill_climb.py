@@ -4,7 +4,7 @@ import random
 class RestartHC:
     def __init__(self, Graph):
         self.graph = Graph
-        self.number_of_trajects = 18
+        self.number_of_trajects = 5
 
         if self.graph.size == 'Holland':
             self.time_limit = 120
@@ -97,7 +97,7 @@ class RestartHC:
     def test(self):
         best_grade = -10000
         best_solution = []
-        for i in range(2000):
+        for i in range(5000):
             new_grade, new_solution = self.run()
             if new_grade > best_grade:
                 best_grade = new_grade

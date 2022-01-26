@@ -30,8 +30,10 @@ if __name__ == "__main__":
     graph = Graph(type)
 
     # Restart Hill Climb algorithm
-    # restartHC = RestartHC(graph)
-    # solution = restartHC.test()
+    start = time.time()
+    restartHC = RestartHC(graph)
+    solution = restartHC.test()
+    stop = time.time()
 
     # generate a random solution
     #all_trajectories = graph.find_all_trajectories(120)
@@ -47,10 +49,10 @@ if __name__ == "__main__":
     stop = time.time()
     print(m_alg[0], m_alg[1], m_alg[2])
     print(stop-start)
-    write_output(m_alg, m_alg[2], m_alg[1])
     map = Map(graph.nodes, graph.dic_of_connections(), type)
-    map.add_solution(m_alg[0])
+    map.add_solution(solution[1])
     map.save_map()
+    print(solution)
 
     # # write final output
 
