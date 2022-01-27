@@ -16,6 +16,7 @@ def alg(data, list_of_connections):
     score = 0
     trajectories = []
     t = list(data.keys())[random.randint(0,(len(data)-1))]
+    #t = ("Heerlen", "Sittard", "Maastricht")
     trajectories.append(t)
     t = int(data[t])
     while b == False:
@@ -68,7 +69,7 @@ def multi_alg(data, list_of_connections):
     trajectories = []
     time = []
     dict_of_scores = {}
-    for i in range(10):
+    for i in range(1):
         hc = alg(data, list_of_connections)
         dict_of_scores[tuple(hc[0])] = hc[2]
         if hc[2] > score:

@@ -9,11 +9,12 @@ defines the Graph class as well as functions to manipulate it
 """
 import csv
 import os
-from turtle import circle
+#from turtle import circle
 from .node import Node
 import networkx as nx
 import numpy as np
 import pandas as pd
+from matplotlib import pyplot as plt
 
 class Graph():
     def __init__(self, size):
@@ -51,6 +52,7 @@ class Graph():
             next(csv_reader)
 
             for row in csv_reader:
+                print(row)
                 nodes[row[0]] = Node(row[0], row[1], row[2])
         return nodes
 
@@ -72,6 +74,11 @@ class Graph():
                 self.nodes[row[1]].add_neighbour(row[0], float(row[2]))
 
                 self.nx_graph.add_edge(row[0], row[1], weight=row[2])
+
+        # plt.rcParams["figure.figsize"] = [7.50, 3.50]
+        # nx.draw(self.nx_graph, with_labels= True)
+        # plt.show()
+        # print(list(nx.all_simple_paths(self.nx_graph, 'Maastricht', 'Heerlen', cutoff=18)))
 
     def add_afsluitdijk(self):
         self.nodes['Den Helder'].add_neighbour('Leeuwarden', 30.0)
@@ -138,7 +145,6 @@ class Graph():
                 if departure_station != arrival_station:
                     for trajectory in list(nx.all_simple_paths(self.nx_graph, departure_station, arrival_station, cutoff=18)):
                         total_time = 0
-
                         for i in range(len(trajectory)-1):
                             station1 = trajectory[i]
                             station2 = trajectory[i+1]

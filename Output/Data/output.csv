@@ -1,7 +1,14 @@
 train,stations
-train_1,"('Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal')"
-train_2,"('Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal', 'Alphen a/d Rijn', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht')"
-train_3,"('Beverwijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Den Helder')"
-train_4,"('Castricum', 'Beverwijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal', 'Den Haag Centraal', 'Gouda')"
-Total time: 412.0
-Score: 9188.0
+train_1,"('Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag HS', 'Delft', 'Schiedam Centrum', 'Rotterdam Centraal')"
+train_2,"('Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal', 'Den Haag Laan v NOI', 'Delft', 'Den Haag Centraal', 'Gouda', 'Utrecht Centraal', 'Ede-Wageningen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Deventer', 'Apeldoorn')"
+train_3,"('Arnhem Centraal', 'Nijmegen', 'Oss', 's-Hertogenbosch', 'Tilburg', 'Breda', 'Dordrecht', 'Rotterdam Centraal', 'Rotterdam Alexander', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal')"
+train_4,"('Assen', 'Zwolle', 'Amersfoort', 'Utrecht Centraal', 'Schiphol Airport')"
+train_5,"('Assen', 'Groningen', 'Leeuwarden', 'Heerenveen', 'Steenwijk', 'Zwolle', 'Deventer', 'Apeldoorn', 'Zutphen')"
+train_6,"('Beverwijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Den Helder')"
+train_7,"('Castricum', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Zuid', 'Amsterdam Amstel', 'Hilversum', 'Utrecht Centraal', 'Amsterdam Centraal', 'Almere Centrum', 'Lelystad Centrum')"
+train_8,"('Den Haag Laan v NOI', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Blaak', 'Dordrecht', 'Roosendaal', 'Etten-Leur', 'Breda', 'Tilburg', 'Eindhoven', 'Helmond', 'Venlo')"
+train_9,"('Enschede', 'Hengelo', 'Almelo', 'Deventer', 'Apeldoorn', 'Amersfoort', 'Utrecht Centraal', 's-Hertogenbosch', 'Eindhoven', 'Weert', 'Roermond', 'Sittard')"
+train_10,"('Heerlen', 'Sittard', 'Maastricht')"
+train_11,"('Hilversum', 'Almere Centrum', 'Amsterdam Amstel', 'Utrecht Centraal', 'Alphen a/d Rijn', 'Gouda', 'Den Haag HS', 'Delft', 'Schiedam Centrum', 'Rotterdam Blaak')"
+Total time: 1558.0
+Score: 7117.28
