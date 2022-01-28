@@ -67,11 +67,19 @@ hill_climb_text_Nationaal = (   "Welkom bij ons hill climb algoritme, dit algori
                                 "haalt die het eerst toegevoegde traject weg en gaat kijken of er een ander traject \n" +
                                 "zorgt voor een betere score. Dit blijft die doen totdat alle traject weer gecontroleerd \n" +
                                 "zijn. Dit algoritme runnen we 1 keer en dan komt dus niet altijd op dezelfde score uit. \n" +
-                                "Dit kan even duren. \n")
+                                "Dit duurt ongeveer een uur. \n")
 vervolg_hill_climb_text_Nationaal = (   "Het rekenen is klaar. Er zijn verschillende dingen die je over \n" +
                                         "dit algoritme kan bekijken, wanneer je quit in typed verlaat je \n" +
                                         "dit algoritme. \n")
-restart_hill_climb_text = ("")
+
+restart_hill_climb_text = ( "Welkom bij ons restart hill climb algoritme, dit algoritme begint met een bepaald aantal \n" +
+                            "random verbindingen. Hij gaat dan de verbindingen langs en voegt er een verbinding aan toe. \n" +
+                            "De verbinding die score het meest doet toenemen wordt toegevoegd. dit blijft die doen totdat \n" +
+                            "er geen verbinding meer is die de score doet toenemen. Dit algoritme runnen we 5000 keer en \n" +
+                            "komt eigenlijk altijd op dezelfde score uit")
+vervolg_restart_hill_climb_text  = (    "Het rekenen is klaar. Er zijn verschillende dingen die je over \n" +
+                                        "dit algoritme kan bekijken, wanneer je quit in typed verlaat je \n" +
+                                        "dit algoritme. \n")
 
 print(welcome_text)
 b = False
@@ -205,6 +213,31 @@ while b == False:
                 break
     elif x == "Restart Hill Climb":
         print(restart_hill_climb_text)
+        rhc = RestartHC(graph)
+        restart_hill_climb = rhc.test()
+        print(vervolg_restart_hill_climb_text)
+        p = False
+        while p == False:
+            print( "Opties zijn: \n" +
+                        " - map \n" +
+                        " - trajecten \n" +
+                        " - score \n" +
+                        " - quit \n")
+            x = input()
+            if x == "map":
+                map = Map(graph.nodes, graph.dic_of_connections(), size)
+                map.add_solution(restart_hill_climb[0])
+                map.save_map()
+                url = os.path.dirname(os.path.abspath(__file__))[0:-8] + '/Output/Maps/' + size + 'Map.html'
+                print(os.getcwd())
+                filename = 'file:///' + os.getcwd() + '/Output/Maps/' + size + 'Map.html'
+                webbrowser.open_new_tab(filename)
+            elif x == "trajecten":
+                print(restart_hill_climb[1], "\n")
+            elif x == "score":
+                print(restart_hill_climb[0], "\n")
+            elif x == "quit":
+                break
     elif x == quit:
         break
     else:

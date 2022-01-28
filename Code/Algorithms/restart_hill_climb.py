@@ -35,13 +35,13 @@ class RestartHC:
 
         fraction = len(connections_used) / self.graph.number_of_connections
         return fraction * 10000 - self.number_of_trajects * 100 - total_time
-    
+
     def get_time(self, traject):
         total_time = 0
         for i in range(len(traject)-2):
             total_time += self.graph.nodes[traject[i]].neighbours[traject[i+1]]
         return total_time
-    
+
     def add_best_connection(self, solution):
         best_solution = solution
         best_grade = -10000
