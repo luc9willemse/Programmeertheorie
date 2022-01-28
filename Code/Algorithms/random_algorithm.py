@@ -76,7 +76,7 @@ class randomAlgoritme:
         """
         data = self.graph.find_all_trajectories(self.time_limit)
         list_of_connections = self.graph.list_of_connections()
-        trajectories_and_grades = []
+        grades = []
         best_fractions = []
         beste_grade = 0
         total_grade = 0
@@ -84,7 +84,7 @@ class randomAlgoritme:
         t = 100000
         for i in range(t):
             ran = self.random_trajectory_generator(data, list_of_connections)
-            trajectories_and_grades.append((ran[0], round(self.grade(ran[3], ran[2], ran[1]), 2)))
+            grades.append(round(self.grade(ran[3], ran[2], ran[1]), 2))
             g = self.grade(ran[3], ran[2], ran[1])
             total_grade += g
             if g > beste_grade:
@@ -94,4 +94,4 @@ class randomAlgoritme:
 
         average_grade = total_grade/t
 
-        return (best_fractions, round(beste_grade, 2), trajectories_and_grades, average_grade, best_time)
+        return (best_fractions, round(beste_grade, 2), grades, average_grade, best_time)

@@ -52,7 +52,6 @@ class Graph():
             next(csv_reader)
 
             for row in csv_reader:
-                print(row)
                 nodes[row[0]] = Node(row[0], row[1], row[2])
         return nodes
 

@@ -11,10 +11,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-def plot_hist(data, highest_score, mean):
+def plot_hist(data, highest_score):
 
     x = np.array(data)
-    plt.axvline(mean, color='red', linewidth=2, label="Mean: " + str(round(mean, 2)))
     sns.distplot(x, hist = True, kde = True,
                  kde_kws = {'linewidth': 2},
                  label = "Scores")

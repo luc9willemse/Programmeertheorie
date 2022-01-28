@@ -95,19 +95,19 @@ class hillClimb:
 
         return (trajectories, best_time, score)
 
-    def multi_alg(self):
+    def multi_alg(self, number):
         data = self.graph.find_all_trajectories(self.time_limit)
         list_of_connections = self.graph.list_of_connections()
         score = 0
         trajectories = []
         time = []
-        dict_of_scores = {}
-        for i in range(1):
+        list_of_scores = []
+        for i in range(number):
             hc = self.alg(data, list_of_connections)
-            dict_of_scores[tuple(hc[0])] = hc[2]
+            list_of_scores.append(hc[2])
             if hc[2] > score:
                 score = hc[2]
                 trajectories = hc[0]
                 time = hc[1]
 
-        return (trajectories, time, score, dict_of_scores)
+        return (trajectories, time, score, list_of_scores)
