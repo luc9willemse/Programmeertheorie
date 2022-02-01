@@ -11,8 +11,6 @@ p: percentage of connections used in all trajectories
 T: number of trajectories
 Min: total time spend in al trajectories
 
-![All intercity stations in the Netherlands](/Output/Maps/screenshot.jpg)
-
 ## Getting Started
 
 ### Prerequisites
@@ -30,15 +28,18 @@ pip install -r requirements.txt
 * /Code/Classes: contains all classes needed for the project
 * /Output/Data: contains the output file with all trajectories and score
 * /Output/Maps: contains the maps with all trajectories used
+* Output/Plots: contains the plots that shows the results from the algorithms
 * /Datasets: contains all csv files needed to run the code
+* /Documents: contains the document explaining the results of the different algorithms
 
 ### Test (Testing)
 
-To run the code use the following instruction: 
+To run the code use the following instruction:
 
 ```
-python3 main.py Holland/Nationaal
+python3 main.py 
 ```
+This will start up the program's GUI where you can choose how to run the program (National/Holland, Number of iterations, Random/Restart hill climber/Hill climber).
 
 ## Authors
 
