@@ -4,7 +4,8 @@ UvAnetID        :   14012391, 12261440, 12276529
 Project group   :   10
 Programmeertheorie
 
-main.py
+UI.py
+this file generates a user iterface
 """
 from importlib.resources import path
 from os import name

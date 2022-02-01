@@ -90,7 +90,17 @@ class hillClimb:
 
     def controle(self, trajectories, data, list_of_connections, t, score, best_time):
         """
-        
+        Trjaectories        :   list with trajectories
+        data                :   list of all the trajectories
+        list_of_connections :   list of all the connections
+        t                   :   first trajectory
+        socre               :   the score
+        best_time           :   total time of the trajectories
+
+        this function checks one more time all the trajectorie to see if there is
+        a trajectrie that fits better.
+
+        return  :   tuple with a list or trajecotires and the best time
         """
         temp_trajectories = trajectories[:]
         for i in range(len(trajectories)):
@@ -114,6 +124,14 @@ class hillClimb:
         return (temp_trajectories, best_time)
 
     def multi_alg(self, number):
+        """
+        number  :   number of time you what to run the hill climb algorithm
+
+        this function rus the hill climb algorithm mulitple time and keep track of
+        all the scores
+
+        return  :   tuple with trajectories, best time, best score and a list of all the scores
+        """
         data = self.graph.find_all_trajectories(self.time_limit)
         list_of_connections = self.graph.list_of_connections()
         score = 0
