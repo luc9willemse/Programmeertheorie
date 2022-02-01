@@ -38,16 +38,25 @@ class hillClimb:
 
         grades the the chosen trajectories
 
-        return  :   int
+        return  :   grade (int)
         """
         return p * 10000 - ((T * 100) + min)
 
     def alg(self, data, list_of_connections):
+        """
+        data                :   list with all the trajectories
+        list_of_connections :   list of all the connections
+
+        this function takes a random trajectory, than is look through all the trajectories
+        and adds the one that the grade improves the most. this keeps happening till there
+        is no trajectorie that improves the grade.
+
+        return  :   Tuple with best trajectories, best time and the best score
+        """
         b = False
         score = 0
         trajectories = []
         t = list(data.keys())[random.randint(0,(len(data)-1))]
-        #t = ("Heerlen", "Sittard", "Maastricht")
         trajectories.append(t)
         t = int(data[t])
         while b == False:
@@ -72,6 +81,17 @@ class hillClimb:
                 trajectories.append(best_trajectory)
                 t += best_time
 
+        c = self.controle(trajectories, data, list_of_connections, t, score, best_time)
+        trajectories = c[0]
+        best_time = c[1]
+
+        return (trajectories, best_time, score)
+
+
+    def controle(self, trajectories, data, list_of_connections, t, score, best_time):
+        """
+        
+        """
         temp_trajectories = trajectories[:]
         for i in range(len(trajectories)):
             b = False
@@ -91,9 +111,7 @@ class hillClimb:
             else:
                 temp_trajectories[i] = trajectories[i]
 
-        trajectories = temp_trajectories
-
-        return (trajectories, best_time, score)
+        return (temp_trajectories, best_time)
 
     def multi_alg(self, number):
         data = self.graph.find_all_trajectories(self.time_limit)

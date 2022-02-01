@@ -148,7 +148,7 @@ while b == False:
     elif x == "Hill Climb" and size == "Holland":
         print(hill_climb_text_Holland)
         hc = hillClimb(graph)
-        hill_climb = hc.multi_alg(100)
+        hill_climb = hc.multi_alg(1000)
         print(vervolg_hill_climb_text_Holland)
         p = False
         while p == False:
@@ -213,7 +213,9 @@ while b == False:
                 break
     elif x == "Restart Hill Climb":
         print(restart_hill_climb_text)
-        rhc = RestartHC(graph)
+        print("Kies het aantal trajecten dat je wil gebruiken. Kies tussen de 7 en de 20")
+        number_of_trajectories = input()
+        rhc = RestartHC(graph, number_of_trajectories)
         restart_hill_climb = rhc.test()
         print(vervolg_restart_hill_climb_text)
         p = False

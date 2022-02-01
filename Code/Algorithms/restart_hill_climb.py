@@ -2,9 +2,9 @@
 import random
 
 class RestartHC:
-    def __init__(self, Graph):
+    def __init__(self, Graph, number_of_trajectories):
         self.graph = Graph
-        self.number_of_trajects = 5
+        self.number_of_trajects = number_of_trajectories
 
         if self.graph.size == 'Holland':
             self.time_limit = 120
