@@ -31,6 +31,7 @@ pip install -r requirements.txt
 * Output/Plots: contains the plots that shows the results from the algorithms
 * /Datasets: contains all csv files needed to run the code
 * /Documents: contains the document explaining the results of the different algorithms
+* /Algorithm_outcome: contains results from running the algorithms
 
 ### Test (Testing)
 

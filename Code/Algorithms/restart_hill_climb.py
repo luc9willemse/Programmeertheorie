@@ -1,5 +1,6 @@
 import random
 
+
 class RestartHC:
     def __init__(self, Graph, number_of_trajectories):
         self.graph = Graph
