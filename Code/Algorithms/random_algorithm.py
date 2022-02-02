@@ -1,6 +1,5 @@
 import random
-from collections import Counter
-import re
+
 
 class randomAlgoritme:
     def __init__(self, Graph):
@@ -24,14 +23,13 @@ class randomAlgoritme:
         list_of_trajectories = []
         total_time = 0
         for i in range(number_of_trajectories):
-            traject = list(data.keys())[random.randint(0,(len(data)-1))]
+            traject = list(data.keys())[random.randint(0, (len(data)-1))]
             list_of_trajectories.append(traject)
             total_time += int(data[traject])
 
         fraction = self.calc_fraction(list_of_trajectories, list_of_connections)
 
         return [list_of_trajectories, total_time, number_of_trajectories, fraction]
-
 
     def calc_fraction(self, list_of_trajectories, list_of_connections):
         """
@@ -42,14 +40,13 @@ class randomAlgoritme:
 
         return  :   fraction
         """
-        l = []
+        list = []
         for trajectory in list_of_trajectories:
             for i in range(len(trajectory)-1):
-                if (trajectory[i], trajectory[i+1]) not in l and (trajectory[i+1], trajectory[i]) not in l:
-                    l.append((trajectory[i], trajectory[i+1]))
+                if (trajectory[i], trajectory[i+1]) not in list and (trajectory[i+1], trajectory[i]) not in list:
+                    list.append((trajectory[i], trajectory[i+1]))
 
-        return len(l) / len(list_of_connections)
-
+        return len(list) / len(list_of_connections)
 
     def grade(self, p, T, min):
         """
@@ -62,7 +59,6 @@ class randomAlgoritme:
         return  :   int
         """
         return p * 10000 - ((T * 100) + min)
-
 
     def multiple_random_tractories(self):
         """

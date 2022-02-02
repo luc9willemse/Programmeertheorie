@@ -1,5 +1,6 @@
 import csv
 
+
 def write_output(solution, grade, time):
     """
     write a csv file with the solution
