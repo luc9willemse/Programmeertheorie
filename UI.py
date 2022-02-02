@@ -7,18 +7,10 @@ Programmeertheorie
 UI.py
 this file generates a user iterface
 """
-from importlib.resources import path
-from os import name
-import networkx as nx
-import matplotlib.pyplot as plt
 from networkx.classes import graph
 from Code.Classes.graph import Graph
 from Code.Classes.map import Map
 from Code.plot import plot_hist
-from Code.write_output import write_output
-import sys
-import time
-from Code.csv_reader import all_trajectories_national
 from Code.Algorithms.restart_hill_climb import RestartHC
 from Code.Algorithms.hill_climb import hillClimb
 from Code.Algorithms.random_algorithm import randomAlgoritme
@@ -84,7 +76,7 @@ vervolg_restart_hill_climb_text  = (    "Het rekenen is klaar. Er zijn verschill
 
 print(welcome_text)
 b = False
-while b == False:
+while b is False:
     size = input()
     if size == "Holland":
         graph = Graph(size)
@@ -100,7 +92,7 @@ while b == False:
                 " - Nationaal \n")
 
 b = False
-while b == False:
+while b is False:
     x = input()
     if x == "menu":
         print(menu)
@@ -110,7 +102,7 @@ while b == False:
                 " - menu \n")
 
 b = False
-while b == False:
+while b is False:
     print(alg_options)
     x = input()
     if x == "Random":
@@ -119,7 +111,7 @@ while b == False:
         multi_random = ran.multiple_random_tractories()
         print(vervolg_random_text)
         p = False
-        while p == False:
+        while p is False:
             print( "Opties zijn: \n" +
                         " - plot \n" +
                         " - map \n" +
@@ -152,7 +144,7 @@ while b == False:
         hill_climb = hc.multi_alg(1000)
         print(vervolg_hill_climb_text_Holland)
         p = False
-        while p == False:
+        while p is False:
             print( "Opties zijn: \n" +
                         " - plot \n" +
                         " - map \n" +
@@ -185,7 +177,7 @@ while b == False:
         hill_climb = hc.multi_alg(1)
         print(vervolg_hill_climb_text_Nationaal)
         p = False
-        while p == False:
+        while p is False:
             print( "Opties zijn: \n" +
                         " - plot \n" +
                         " - map \n" +

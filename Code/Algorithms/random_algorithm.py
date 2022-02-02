@@ -1,6 +1,5 @@
 import random
-from collections import Counter
-import re
+
 
 class randomAlgoritme:
     def __init__(self, Graph):
@@ -17,39 +16,42 @@ class randomAlgoritme:
 
         this function picks random trajectories
 
-        return  :   list with the randomly chosen trajectories, total time of the trajectories,
-                    number of trajectories and the fraction of the station that are used
+        return  :   list with the randomly chosen trajectories, total time of
+                    the trajectories, number of trajectories and the fraction
+                    of the station that are used
         """
         number_of_trajectories = random.randint(1, 13)
         list_of_trajectories = []
         total_time = 0
         for i in range(number_of_trajectories):
-            traject = list(data.keys())[random.randint(0,(len(data)-1))]
+            traject = list(data.keys())[random.randint(0, (len(data)-1))]
             list_of_trajectories.append(traject)
             total_time += int(data[traject])
 
-        fraction = self.calc_fraction(list_of_trajectories, list_of_connections)
+        fraction = self.calc_fraction((list_of_trajectories,
+                                       list_of_connections))
 
-        return [list_of_trajectories, total_time, number_of_trajectories, fraction]
-
+        return [list_of_trajectories, total_time,
+                number_of_trajectories, fraction]
 
     def calc_fraction(self, list_of_trajectories, list_of_connections):
         """
         list_of_trajectories    :   list of the trajectories
         list_of_connection      :   list of all the connections
 
-        this function calculates what fraction of the connections are used by the trajectories
+        this function calculates what fraction of the connections are
+        used by the trajectories
 
         return  :   fraction
         """
-        l = []
+        L = []
         for trajectory in list_of_trajectories:
             for i in range(len(trajectory)-1):
-                if (trajectory[i], trajectory[i+1]) not in l and (trajectory[i+1], trajectory[i]) not in l:
-                    l.append((trajectory[i], trajectory[i+1]))
+                if ((trajectory[i], trajectory[i+1]) not in L and
+                        (trajectory[i+1], trajectory[i]) not in L):
+                    L.append((trajectory[i], trajectory[i+1]))
 
-        return len(l) / len(list_of_connections)
-
+        return len(L) / len(list_of_connections)
 
     def grade(self, p, T, min):
         """
@@ -63,13 +65,12 @@ class randomAlgoritme:
         """
         return p * 10000 - ((T * 100) + min)
 
-
     def multiple_random_tractories(self):
         """
         data    :   dataset
 
-        runs the random fraction generator multiple times and picks the best one,
-        also keeps track of al the scores.
+        runs the random fraction generator multiple times and picks the best
+        one, also keeps track of al the scores.
 
         return  :   list with the best combination of fractions found, the best
                     grade and a list of all the grades
@@ -94,4 +95,5 @@ class randomAlgoritme:
 
         average_grade = total_grade/t
 
-        return (best_fractions, round(beste_grade, 2), grades, average_grade, best_time)
+        return (best_fractions, round(beste_grade, 2), grades, average_grade,
+                best_time)
