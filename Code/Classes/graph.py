@@ -9,16 +9,13 @@ defines the Graph class as well as functions to manipulate it
 """
 import csv
 import os
-#from turtle import circle
 from .node import Node
 import networkx as nx
-import numpy as np
-import pandas as pd
-from matplotlib import pyplot as plt
+
 
 class Graph():
     def __init__(self, size):
-        self.size = size # Holland/Nationaal
+        self.size = size  # Holland/Nationaal
         self.stations_location = self.get_file_location(size, 'stations')
         self.connections_location = self.get_file_location(size, 'connections')
         self.nodes = self.load_stations()
@@ -60,7 +57,6 @@ class Graph():
         load all connections into Node classes, and into networkx graph
         """
         file = self.connections_location
-        connections = {}
 
         # open file with connection information
         with open(file, "r") as f:
@@ -74,26 +70,31 @@ class Graph():
 
                 self.nx_graph.add_edge(row[0], row[1], weight=row[2])
 
-        # plt.rcParams["figure.figsize"] = [7.50, 3.50]
-        # nx.draw(self.nx_graph, with_labels= True)
-        # plt.show()
-        # print(list(nx.all_simple_paths(self.nx_graph, 'Maastricht', 'Heerlen', cutoff=18)))
-
     def add_afsluitdijk(self):
+        """
+        add the afsluitdijk connection to the network
+        """
         self.nodes['Den Helder'].add_neighbour('Leeuwarden', 30.0)
         self.nodes['Leeuwarden'].add_neighbour('Den Helder', 30.0)
 
         self.nx_graph.add_edge('Den Helder', 'Leeuwarden', weight=30.0)
 
     def remove_station(self, deleted_station_str):
-        deleted_station = self.nodes[deleted_station_str]
-
+        """
+        deleted_station_str :   str of station to be deleted
+        """
         for station in self.nodes:
             if deleted_station_str in self.nodes[station].neighbours:
                 self.nodes[station].remove_neighbour(deleted_station_str)
+
         self.nodes.pop(deleted_station_str)
 
     def number_of_connections(self):
+        """
+        get the total number of connections in the network
+
+        total_connections   :   float
+        """
         total_connections = 0
 
         for station in self.nodes:
@@ -121,13 +122,13 @@ class Graph():
         """
         returns list of all connections
         """
-        l = []
+        list = []
         for stations, n in self.dic_of_connections().items():
             for neighbors in n:
-                if (neighbors, stations) not in l:
-                    l.append((stations, neighbors))
+                if (neighbors, stations) not in list:
+                    list.append((stations, neighbors))
 
-        return l
+        return list
 
     def find_all_trajectories(self, max_time):
         """
